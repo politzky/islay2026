@@ -670,6 +670,7 @@ details .detail-content p { margin-bottom: 8px; }
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab(event,'reise-uebersicht')">Übersicht</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-fluege')">Flüge</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-faehre')">Fähre</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-mietwagen')">Mietwagen</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-unterkunft')">Unterkunft</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-eta')">ETA</button>
@@ -757,6 +758,70 @@ details .detail-content p { margin-bottom: 8px; }
     <div class="info-block">
       <div class="info-block-title">Parken am Flughafen Stuttgart</div>
       Abfahrt Ostelsheim ca. 07:00 · Fahrzeit ~35 min über A 81 / A 8 · Ausfahrt „Flughafen". Günstige Langzeitparkplätze (6 Tage, ab ~50 €) über <a href="https://eu.parkos.com/stuttgart-airport-parking/" target="_blank" rel="noopener">Parkos</a> oder <a href="https://parken.flughafen-stuttgart.de/" target="_blank" rel="noopener">Flughafen direkt</a> (P0, ab 85 €/Woche). Shuttle-Parkplätze sind günstiger, Laufnähe-Parkhäuser bequemer. Unbedingt vorher online buchen.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-faehre">
+    <h2>CalMac · Kennacraig ↔ Port Askaig</h2>
+
+    <div class="eta-grid" style="margin-bottom: 16px;">
+      <div class="eta-fact">
+        <div class="eta-fact-label">Buchungsnr.</div>
+        <div class="eta-fact-value">S2601487064</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Ticketnr.</div>
+        <div class="eta-fact-value">SI2602835521</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Passagiere</div>
+        <div class="eta-fact-value">7 Erwachsene</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Fahrzeug</div>
+        <div class="eta-fact-value">1 PKW (4,6 m)</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Gebucht auf</div>
+        <div class="eta-fact-value">Steffen Politzky</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Gesamtpreis</div>
+        <div class="eta-fact-value">£216.80</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">Hinfahrt · Mo 5. Oktober</h3>
+    <div class="flight-card">
+      <div class="flight-route">
+        <div class="flight-point"><div class="flight-code">Kennacraig</div><div class="flight-time">18:10</div></div>
+        <div class="flight-arrow">→</div>
+        <div class="flight-point"><div class="flight-code">Port Askaig</div><div class="flight-time">20:05</div></div>
+      </div>
+      <div class="flight-meta">
+        <span>Dauer <strong>1 h 55 min</strong></span>
+        <span>Check-in bis <strong>17:40</strong></span>
+        <span>£108.40</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">Rückfahrt · Sa 10. Oktober</h3>
+    <div class="flight-card">
+      <div class="flight-route">
+        <div class="flight-point"><div class="flight-code">Port Askaig</div><div class="flight-time">07:00</div></div>
+        <div class="flight-arrow">→</div>
+        <div class="flight-point"><div class="flight-code">Kennacraig</div><div class="flight-time">08:55</div></div>
+      </div>
+      <div class="flight-meta">
+        <span>Dauer <strong>1 h 55 min</strong></span>
+        <span>Check-in bis <strong>06:30</strong></span>
+        <span>£108.40</span>
+      </div>
+    </div>
+
+    <div class="info-block warn" style="margin-top: 20px;">
+      <div class="info-block-title">Check-in ist Pflicht</div>
+      30 Minuten vor Abfahrt am Terminal sein. Ohne Check-in kein Boarding — auch mit Ticket nicht.
     </div>
   </div>
 
@@ -1176,6 +1241,10 @@ details .detail-content p { margin-bottom: 8px; }
       <div class="contact-card">
         <div><div class="contact-name">Sunny Cars Notfall 24/7</div><div class="contact-detail">Versicherungsfälle, Pannen, Unfälle</div></div>
         <a href="tel:+498982993310" class="contact-phone">089 82 99 33 10</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">CalMac Ferries</div><div class="contact-detail">Fähre Kennacraig–Port Askaig · Buchung S2601487064</div></div>
+        <a href="tel:+448006665000" class="contact-phone">0800 066 5000</a>
       </div>
       <div class="contact-card">
         <div><div class="contact-name">Jura Distillery</div><div class="contact-detail">Führung buchen, Mo–Fr 10–16 Uhr</div></div>
