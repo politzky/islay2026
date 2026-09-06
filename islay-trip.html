@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Islay & Jura 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  --bg: #E8E4DF;
+  --surface: #F5F3F0;
+  --surface-alt: #DDD8D2;
+  --text: #2C3024;
+  --text-secondary: #5C5850;
+  --text-tertiary: #8A8478;
+  --accent: #B87A2E;
+  --accent-light: #D4A35A;
+  --accent-bg: rgba(184,122,46,0.08);
+  --accent-border: rgba(184,122,46,0.25);
+  --slate: #2C3E3B;
+  --slate-light: #3D524E;
+  --heather: #7B6E8A;
+  --danger: #A0453A;
+  --success: #4A7A52;
+  --border: rgba(44,48,36,0.1);
+  --border-strong: rgba(44,48,36,0.2);
+  --shadow: 0 1px 3px rgba(44,48,36,0.06);
+  --shadow-md: 0 2px 8px rgba(44,48,36,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Source Sans 3', 'Source Sans Pro', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+h1,h2,h3 { font-family: 'DM Serif Display', 'Georgia', serif; font-weight: 400; }
+h1 { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.2; text-wrap: balance; }
+h2 { font-size: clamp(1.15rem, 4.5vw, 1.4rem); line-height: 1.3; text-wrap: balance; }
+h3 { font-size: clamp(1rem, 3.5vw, 1.1rem); line-height: 1.35; }
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 clamp(14px, 4vw, 20px); }
+
+/* Hero */
+.hero {
+  background: var(--slate);
+  color: #E0DDD8;
+  padding: 32px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    120deg,
+    transparent, transparent 60px,
+    rgba(255,255,255,0.015) 60px, rgba(255,255,255,0.015) 61px
+  );
+  pointer-events: none;
+}
+.hero h1 { color: #fff; margin-bottom: 2px; }
+.hero-sub { color: var(--accent-light); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 0; }
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+.reise-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+}
+.hero-card-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin-bottom: 2px;
+}
+.hero-card-value { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+.hero-card-detail { font-size: 0.82rem; color: var(--text-secondary); margin-top: 2px; }
+.map-link { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--accent-border); transition: color 0.15s, border-color 0.15s; }
+.map-link:hover, .map-link:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+.reise-card-link { text-decoration: none; color: inherit; transition: border-color 0.15s; }
+.reise-card-link:hover, .reise-card-link:focus-visible { border-color: var(--accent); outline: none; }
+.map-hint {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Nav */
+.day-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.day-nav::-webkit-scrollbar { display: none; }
+.day-nav-inner {
+  display: flex;
+  gap: 0;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.day-nav a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px 8px;
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.day-nav a:hover, .day-nav a:focus-visible { color: var(--accent); border-bottom-color: var(--accent); outline: none; }
+.day-nav-date { font-size: 10px; color: var(--text-tertiary); font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+/* Sections */
+.section { padding: 32px 0; }
+.section + .section { border-top: 1px solid var(--border); }
+.section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+/* Day sections */
+.day-header { margin-bottom: 20px; }
+.day-tag {
+  display: inline-block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  font-weight: 700;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  padding: 2px 10px;
+  border-radius: 3px;
+  margin-bottom: 8px;
+}
+.day-header h2 { margin-bottom: 4px; }
+.day-summary { color: var(--text-secondary); font-size: 0.92rem; }
+.tab-btn .day-nav-date { font-size: 10px; color: var(--text-tertiary); font-weight: 400; margin-left: 4px; }
+
+/* Timeline */
+.timeline { margin: 16px 0; }
+.tl-item {
+  display: grid;
+  grid-template-columns: 56px 16px 1fr;
+  gap: 0 10px;
+  min-height: 42px;
+  align-items: start;
+}
+.tl-time {
+  font-family: 'Source Sans 3', monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: right;
+  padding-top: 2px;
+}
+.tl-dot-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+.tl-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-top: 6px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.tl-dot.minor { background: var(--border-strong); width: 6px; height: 6px; margin-top: 7px; }
+.tl-line {
+  flex: 1;
+  width: 1px;
+  background: var(--border-strong);
+  margin-top: 4px;
+}
+.tl-item:last-child .tl-line { display: none; }
+.tl-content { padding: 0 0 14px; }
+.tl-title { font-weight: 600; font-size: 0.92rem; }
+.tl-desc { font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px; }
+
+/* Info blocks */
+.info-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 0.9rem;
+}
+.info-block.warn {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-bg);
+}
+.info-block.danger {
+  border-left: 3px solid var(--danger);
+}
+.info-block-title { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+.info-block.warn .info-block-title { color: var(--accent); }
+.info-block.danger .info-block-title { color: var(--danger); }
+
+/* Packing list */
+.pack-section { margin-bottom: 20px; }
+.pack-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+.pack-list { list-style: none; }
+.pack-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.15s;
+}
+.pack-item:last-child { border-bottom: none; }
+.pack-item.checked { opacity: 0.45; }
+.pack-item.checked .pack-label { text-decoration: line-through; }
+.pack-check {
+  width: 18px; height: 18px;
+  border: 2px solid var(--border-strong);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, background 0.15s;
+}
+.pack-item.checked .pack-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.pack-item.checked .pack-check::after {
+  content: '';
+  width: 10px; height: 6px;
+  border: 2px solid #fff;
+  border-top: none; border-right: none;
+  transform: rotate(-45deg) translateY(-1px);
+}
+.pack-label { font-size: 0.9rem; }
+.pack-note { font-size: 0.8rem; color: var(--text-tertiary); }
+.pack-progress {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+.pack-progress span { color: var(--accent); font-weight: 700; }
+.pack-reset {
+  background: none;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 12px;
+}
+.pack-reset:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Drive times */
+.drive-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin: 12px 0;
+}
+.drive-table th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  padding: 6px 8px;
+  border-bottom: 2px solid var(--border-strong);
+}
+.drive-table td {
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.drive-table td:last-child {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.drive-table tr:last-child td { border-bottom: none; }
+.walk-area { margin-bottom: 20px; }
+.walk-area-title { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border); }
+.walk-route { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px solid var(--border); gap: 8px; }
+.walk-route:last-child { border-bottom: none; }
+.walk-name { font-weight: 600; font-size: 0.92rem; }
+.walk-stats { font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; }
+.walk-grade { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 1px 6px; border-radius: 3px; background: var(--accent-bg); color: var(--accent); margin-left: 6px; vertical-align: 1px; }
+
+/* Collapsible */
+details { margin: 12px 0; }
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
+  padding: 8px 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+details summary::-webkit-details-marker { display: none; }
+details summary::before {
+  content: '';
+  width: 0; height: 0;
+  border-left: 5px solid var(--text-secondary);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+details .detail-content { padding: 4px 0 8px 20px; font-size: 0.9rem; color: var(--text-secondary); }
+details .detail-content p { margin-bottom: 8px; }
+
+/* Footer */
+.footer {
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-align: center;
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 10px 18px 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+.tab-btn:hover { color: var(--text-secondary); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.page-content { display: none; }
+.page-content.active { display: block; }
+.day-nav a.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Contact list */
+.contact-grid { display: grid; gap: 10px; margin: 12px 0; }
+.contact-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px;
+  align-items: start;
+}
+.contact-name { font-weight: 600; font-size: 0.92rem; }
+.contact-detail { font-size: 0.82rem; color: var(--text-secondary); }
+.contact-phone { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--accent); font-size: 0.88rem; text-decoration: none; text-align: right; }
+
+/* ETA section */
+.eta-banner {
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 24px 0 8px;
+}
+.eta-banner h2 { margin-bottom: 4px; }
+.eta-banner-sub { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px; }
+.eta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.eta-fact {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 10px 12px;
+}
+.eta-fact-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-tertiary);
+  font-weight: 600;
+}
+.eta-fact-value { font-weight: 700; font-size: 0.95rem; }
+.eta-steps { margin-top: 14px; }
+.eta-step {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 5px 0;
+  font-size: 0.88rem;
+}
+.eta-step-num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.eta-link {
+  display: inline-block;
+  margin-top: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-border);
+  padding-bottom: 1px;
+}
+.eta-link:hover { border-bottom-color: var(--accent); }
+
+/* Drive table scroll */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* ===== TOUCH DEVICE DETECTION ===== */
+@media (pointer: coarse) {
+  .pack-item { padding: 12px 0; gap: 12px; min-height: 48px; }
+  .pack-check { width: 24px; height: 24px; }
+  details summary { padding: 12px 0; min-height: 48px; }
+  .day-nav a { min-height: 44px; }
+  .tab-btn { min-height: 44px; }
+  .contact-phone { font-size: 1.05rem; padding: 8px 0; }
+}
+
+/* ===== PHONE (up to 600px) ===== */
+@media (max-width: 600px) {
+  body { font-size: 16px; line-height: 1.65; }
+
+  /* Hero compact */
+  .hero { padding: 20px 0 0; }
+  .hero-sub { font-size: 0.95rem; }
+
+  /* Reise-Kacheln: single column */
+  .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+  .reise-card { padding: 10px 14px; }
+  .hero-card-value { font-size: 1rem; }
+  .hero-card-detail { font-size: 0.85rem; }
+
+  /* Nav: full-width scroll, bigger targets */
+  .day-nav-inner { padding: 0 10px; }
+  .day-nav a {
+    padding: 10px 12px 8px;
+    font-size: 12px;
+    min-width: 48px;
+  }
+  .day-nav-date { font-size: 11px; }
+
+  /* Timeline: bigger, more readable */
+  .tl-item { grid-template-columns: 48px 14px 1fr; gap: 0 8px; }
+  .tl-time { font-size: 0.9rem; }
+  .tl-title { font-size: 1rem; }
+  .tl-desc { font-size: 0.9rem; line-height: 1.5; }
+  .tl-content { padding-bottom: 16px; }
+
+  /* Packing: big touch targets, readable text */
+  .pack-item { padding: 12px 0; gap: 14px; min-height: 48px; }
+  .pack-check { width: 26px; height: 26px; margin-top: 0; }
+  .pack-label { font-size: 1rem; }
+  .pack-note { font-size: 0.85rem; margin-top: 2px; }
+  .pack-title { font-size: 1.05rem; }
+  .pack-progress { font-size: 0.9rem; }
+
+  /* Tabs: wrap on mobile */
+  .tabs { flex-wrap: wrap; }
+  .tab-btn { padding: 10px 16px 8px; font-size: 0.9rem; }
+
+  /* Info blocks: readable */
+  .info-block { padding: 14px 16px; font-size: 0.95rem; }
+  .info-block-title { font-size: 0.9rem; }
+
+  /* Details: bigger targets */
+  details summary { padding: 12px 0; min-height: 48px; font-size: 1rem; }
+  details .detail-content { font-size: 0.95rem; padding-left: 16px; }
+  details .detail-content p { margin-bottom: 10px; }
+
+  /* Contact cards: stacked, big phone links */
+  .contact-card { grid-template-columns: 1fr; padding: 14px; }
+  .contact-name { font-size: 1rem; }
+  .contact-detail { font-size: 0.9rem; }
+  .contact-phone {
+    text-align: left;
+    margin-top: 8px;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    display: block;
+  }
+
+  /* ETA: stacked */
+  .eta-grid { grid-template-columns: 1fr; gap: 8px; }
+  .eta-banner { padding: 16px; }
+  .eta-banner-sub { font-size: 0.95rem; }
+  .eta-fact-value { font-size: 1rem; }
+  .eta-step { font-size: 0.95rem; padding: 6px 0; }
+  .eta-link { font-size: 1rem; padding: 8px 0; }
+
+  /* Day sections */
+  .day-tag { font-size: 12px; padding: 3px 12px; }
+  .day-summary { font-size: 0.95rem; }
+  .section { padding: 24px 0; }
+  .section-label { font-size: 12px; }
+
+  /* Drive table: bigger text */
+  .drive-table { font-size: 0.95rem; }
+  .drive-table td { padding: 10px 8px; }
+  .drive-table th { font-size: 12px; }
+
+  /* Map links: bigger tap target */
+  .map-link { padding: 2px 0; }
+
+  /* Flight cards */
+  .flight-leg { grid-template-columns: 58px 1fr 1fr; gap: 4px 8px; }
+  .flight-layover { padding-left: 66px; }
+  .flight-meta { font-size: 0.9rem; }
+
+  /* Footer */
+  .footer { font-size: 0.85rem; padding: 20px 0; }
+}
+
+/* Flight cards */
+.flight-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.flight-dir {
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.flight-leg {
+  display: grid;
+  grid-template-columns: 62px 1fr 1fr;
+  gap: 4px 10px;
+  align-items: baseline;
+  padding: 6px 0;
+  font-variant-numeric: tabular-nums;
+}
+.flight-nr { font-weight: 700; font-size: 0.85rem; }
+.flight-dep, .flight-arr { font-size: 0.9rem; }
+.flight-dep::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-right: 6px; vertical-align: 1px; }
+.flight-arr::before { content: '▸ '; color: var(--text-tertiary); }
+.flight-layover {
+  padding: 2px 0 2px 72px;
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+}
+.flight-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  padding: 10px 0;
+  display: flex;
+  gap: 8px 20px;
+  flex-wrap: wrap;
+}
+.flight-meta strong { color: var(--text); font-weight: 700; }
+
+/* ===== VERY SMALL PHONE (up to 380px) ===== */
+@media (max-width: 380px) {
+  .wrap { padding: 0 12px; }
+  .tl-item { grid-template-columns: 42px 12px 1fr; gap: 0 6px; }
+  .day-nav a { padding: 8px 8px 6px; font-size: 11px; }
+  .hero-grid { gap: 6px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap">
+    <h1>Islay &amp; Jura</h1>
+    <div class="hero-sub">5.–10. Oktober 2026</div>
+  </div>
+</div>
+<!-- DAY NAV outside hero for sticky to work -->
+<nav class="day-nav" aria-label="Tagesnavigation">
+  <div class="day-nav-inner">
+    <a href="#" class="active" onclick="switchPage(event,'page-reise')"><span>Reise</span></a>
+    <a href="#" onclick="switchPage(event,'page-mo')"><span>Mo</span><span class="day-nav-date">5.10.</span></a>
+    <a href="#" onclick="switchPage(event,'page-di')"><span>Di</span><span class="day-nav-date">6.10.</span></a>
+    <a href="#" onclick="switchPage(event,'page-mi')"><span>Mi</span><span class="day-nav-date">7.10.</span></a>
+    <a href="#" onclick="switchPage(event,'page-do')"><span>Do</span><span class="day-nav-date">8.10.</span></a>
+    <a href="#" onclick="switchPage(event,'page-fr')"><span>Fr</span><span class="day-nav-date">9.10.</span></a>
+    <a href="#" onclick="switchPage(event,'page-sa')"><span>Sa</span><span class="day-nav-date">10.10.</span></a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- REISE -->
+<div class="page-content active" id="page-reise">
+<div class="section" id="reise">
+  <div class="section-label">Reise</div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(event,'reise-uebersicht')">Übersicht</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-fluege')">Flüge</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-mietwagen')">Mietwagen</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-unterkunft')">Unterkunft</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-eta')">ETA</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-packliste')">Packliste</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-wandern')">Wandern</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-fahrzeiten')">Fahrzeiten</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-praktisches')">Praktisches</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-kontakte')">Kontakte</button>
+  </div>
+
+  <div class="tab-content active" id="reise-uebersicht">
+    <div class="hero-grid">
+      <div class="reise-card">
+        <div class="hero-card-label">Hinflug</div>
+        <div class="hero-card-value">Mo 5.10.</div>
+        <div class="hero-card-detail">STR 09:45 → AMS → GLA 12:55</div>
+      </div>
+      <div class="reise-card">
+        <div class="hero-card-label">Rückflug</div>
+        <div class="hero-card-value">Sa 10.10.</div>
+        <div class="hero-card-detail">GLA 17:00 → AMS → STR 22:35</div>
+      </div>
+      <a class="reise-card reise-card-link" href="https://www.google.com/maps/search/?api=1&query=55.641995,-6.201106" target="_blank" rel="noopener">
+        <div class="hero-card-label">Unterkunft</div>
+        <div class="hero-card-value">3-Bedroom House, Port Ellen</div>
+        <div class="hero-card-detail">Check-in 15:00 · Check-out 10:00 · Schlüsselbox <span class="map-hint">Maps</span></div>
+      </a>
+      <div class="reise-card">
+        <div class="hero-card-label">Mietwagen</div>
+        <div class="hero-card-value">Ford Tourneo 9-Sitzer</div>
+        <div class="hero-card-detail">Enterprise · Automatik · Buchung 16182696</div>
+      </div>
+      <div class="reise-card">
+        <div class="hero-card-label">Tageslicht</div>
+        <div class="hero-card-value">07:45 – 18:35</div>
+        <div class="hero-card-detail">Dämmerung bis ca. 19:10</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-fluege">
+    <h2>KLM via Amsterdam Schiphol</h2>
+
+    <div class="flight-card">
+      <div class="flight-dir">Hinflug — Montag 5. Oktober</div>
+      <div class="flight-leg">
+        <span class="flight-nr">KL 1828</span>
+        <span class="flight-dep">STR 09:45</span>
+        <span class="flight-arr">AMS 11:05</span>
+      </div>
+      <div class="flight-layover">Umsteigen Schiphol · 1 h 20 min</div>
+      <div class="flight-leg">
+        <span class="flight-nr">KL 0939</span>
+        <span class="flight-dep">AMS 12:25</span>
+        <span class="flight-arr">GLA 12:55</span>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <div class="flight-dir">Rückflug — Samstag 10. Oktober</div>
+      <div class="flight-leg">
+        <span class="flight-nr">KL 0942</span>
+        <span class="flight-dep">GLA 17:00</span>
+        <span class="flight-arr">AMS 19:35</span>
+      </div>
+      <div class="flight-layover">Umsteigen Schiphol · 1 h 45 min</div>
+      <div class="flight-leg">
+        <span class="flight-nr">KL 1835</span>
+        <span class="flight-dep">AMS 21:20</span>
+        <span class="flight-arr">STR 22:35</span>
+      </div>
+    </div>
+
+    <div class="flight-meta">
+      <span>Buchungscode: <strong>YW89O8</strong></span>
+      <span>Nur Handgepäck (12 kg)</span>
+      <span>Kein aufgegebenes Gepäck</span>
+    </div>
+
+    <div class="info-block warn">
+      <div class="info-block-title">Whisky im Handgepäck?</div>
+      Flaschen über 100 ml dürfen nicht ins Handgepäck. Da kein Aufgabegepäck gebucht ist: entweder vor dem Rückflug ein Gepäckstück dazubuchen oder Flaschen per Post nach Hause schicken.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Parken am Flughafen Stuttgart</div>
+      Abfahrt Ostelsheim ca. 07:00 · Fahrzeit ~35 min über A 81 / A 8 · Ausfahrt „Flughafen". Günstige Langzeitparkplätze (6 Tage, ab ~50 €) über <a href="https://eu.parkos.com/stuttgart-airport-parking/" target="_blank" rel="noopener">Parkos</a> oder <a href="https://parken.flughafen-stuttgart.de/" target="_blank" rel="noopener">Flughafen direkt</a> (P0, ab 85 €/Woche). Shuttle-Parkplätze sind günstiger, Laufnähe-Parkhäuser bequemer. Unbedingt vorher online buchen.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-mietwagen">
+    <h2>Enterprise · Ford Tourneo 9-Sitzer</h2>
+
+    <div class="eta-grid" style="margin-bottom: 16px;">
+      <div class="eta-fact">
+        <div class="eta-fact-label">Buchungsnr.</div>
+        <div class="eta-fact-value">16182696</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Fahrzeug</div>
+        <div class="eta-fact-value">Ford Tourneo Minivan, Automatik</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Abholung</div>
+        <div class="eta-fact-value">Mo 05.10. · 14:00 · Glasgow Airport</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Rückgabe</div>
+        <div class="eta-fact-value">Sa 10.10. · 14:00 · Glasgow Airport</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Hauptfahrer</div>
+        <div class="eta-fact-value">Arno Abenheimer</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Zusatzfahrer</div>
+        <div class="eta-fact-value">1 inkl., weitere gegen Aufpreis</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Kilometer</div>
+        <div class="eta-fact-value">Alle frei</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Tank</div>
+        <div class="eta-fact-value">Faire Regelung (Rückgabe = Übernahme)</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">So findet ihr die Station</div>
+      Im Terminal der Beschilderung <strong>„Car Rental Centre"</strong> folgen. Die Enterprise-Station ist im <strong>Parkhaus (Building 47)</strong> — gemeinsamer Schalter von Enterprise / Alamo / National. Wenige Minuten zu Fuß vom Terminal.
+      <br><br>
+      <span style="font-size:0.85rem; color:var(--text-secondary)">Adresse: Glasgow APT, St. Andrews Crescent, PA3 2ST Paisley · Tel. <a href="tel:+441418421000">+44 141 842 1000</a> · Täglich 06:00–23:00</span>
+    </div>
+
+    <div class="info-block warn">
+      <div class="info-block-title">Kaution: Kreditkarte mit PIN Pflicht</div>
+      Ca. 588 € werden auf der Kreditkarte des Hauptfahrers (Arno) blockiert. <strong>Debit-, Giro- und Prepaidkarten werden nicht akzeptiert.</strong> Karte muss auf den Namen des Hauptfahrers lauten.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Keine Zusatzversicherung kaufen</div>
+      Vollkasko ohne Selbstbeteiligung ist über Sunny Cars bereits enthalten (Glas, Reifen, Dach, Unterboden). Am Enterprise-Schalter nichts dazubuchen — egal was angeboten wird.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Fähre &amp; Straßen</div>
+      Fährüberfahrt innerhalb UK ist gestattet und versichert. Fahren auf unbefestigten Straßen ist <strong>nicht erlaubt</strong> — auf Islay bei manchen Single-Track-Roads beachten.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Am Schalter vorlegen</div>
+      Voucher (ausgedruckt oder digital) · Reisepass mit Adresse · Führerschein (EU-Kartenformat, mind. 1 Jahr alt) · Kreditkarte · Flugtickets als Ein-/Ausreisebeleg
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-unterkunft">
+    <h2>Cozy 3 Bedroom House near Port Ellen</h2>
+
+    <div class="eta-grid" style="margin-bottom: 16px;">
+      <div class="eta-fact">
+        <div class="eta-fact-label">Gastgeber</div>
+        <div class="eta-fact-value">Islay Croft</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Adresse</div>
+        <div class="eta-fact-value"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Ellen+PA42+7AT+Islay" target="_blank" rel="noopener">Port Ellen, PA42 7AT</a></div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Check-in</div>
+        <div class="eta-fact-value">Mo 05.10. ab 15:00</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Check-out</div>
+        <div class="eta-fact-value">Sa 10.10. bis 10:00</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Schlafzimmer</div>
+        <div class="eta-fact-value">3 Schlafzimmer, max. 7 Gäste</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Bestätigungscode</div>
+        <div class="eta-fact-value">HMSM3KRS3B</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Check-in-Methode</div>
+        <div class="eta-fact-value">Schlüsselbox (eigenständig)</div>
+      </div>
+      <div class="eta-fact">
+        <div class="eta-fact-label">Gesamtpreis</div>
+        <div class="eta-fact-value">946,83 €</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Schlüsselbox</div>
+      Eigenständiger Check-in per Schlüsselbox. Code beim Gastgeber erfragen — am besten ein paar Tage vor Anreise über Airbnb anschreiben.
+    </div>
+
+    <div class="info-block warn">
+      <div class="info-block-title">Hausregeln</div>
+      Maximal 7 Gäste · Keine Haustiere · Eigenständiger Check-in und Check-out
+    </div>
+
+    <div class="info-block danger">
+      <div class="info-block-title">Stornierung</div>
+      Anteilige Rückerstattung bei Stornierung vor <strong>28. September 15:00 Uhr</strong>. Danach nicht mehr erstattungsfähig.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Zeitplan beachten</div>
+      Ankunft am Montag erst gegen 20:55 (nach Fähre ab Port Askaig) — weit nach Check-in-Zeit, kein Problem. Abreise am Samstag um 05:40 — weit vor Check-out um 10:00. Haus aufräumen und Schlüssel in die Box am Vorabend vorbereiten.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-eta">
+    <div class="eta-banner">
+      <h2>UK ETA — Einreisegenehmigung</h2>
+      <div class="eta-banner-sub">Seit April 2025 Pflicht für deutsche Staatsbürger. Ohne ETA keine Boardingkarte.</div>
+
+      <div class="eta-grid">
+        <div class="eta-fact">
+          <div class="eta-fact-label">Kosten</div>
+          <div class="eta-fact-value">£20 pro Person</div>
+        </div>
+        <div class="eta-fact">
+          <div class="eta-fact-label">Gültigkeit</div>
+          <div class="eta-fact-value">2 Jahre, mehrfache Einreise</div>
+        </div>
+        <div class="eta-fact">
+          <div class="eta-fact-label">Bearbeitungszeit</div>
+          <div class="eta-fact-value">Meist wenige Minuten</div>
+        </div>
+        <div class="eta-fact">
+          <div class="eta-fact-label">Aufenthalt</div>
+          <div class="eta-fact-value">Max. 6 Monate pro Einreise</div>
+        </div>
+      </div>
+
+      <div class="eta-steps">
+        <div class="eta-step"><div class="eta-step-num">1</div><div>UK ETA App herunterladen oder online auf gov.uk/eta beantragen</div></div>
+        <div class="eta-step"><div class="eta-step-num">2</div><div>Gültigen Reisepass bereithalten — Pass-Nr., Ausstellungs- und Ablaufdatum exakt wie gedruckt eingeben</div></div>
+        <div class="eta-step"><div class="eta-step-num">3</div><div>Digitales Passfoto aufnehmen (geht direkt in der App)</div></div>
+        <div class="eta-step"><div class="eta-step-num">4</div><div>Persönliche Angaben, Kontaktdaten, kurze Sicherheitsfragen beantworten</div></div>
+        <div class="eta-step"><div class="eta-step-num">5</div><div>£20 zahlen — Genehmigung kommt meist in Minuten per E-Mail</div></div>
+      </div>
+
+      <a href="https://www.gov.uk/eta" class="eta-link" target="_blank" rel="noopener">gov.uk/eta — Antrag stellen</a>
+    </div>
+
+    <div class="info-block danger" style="margin-top: 16px;">
+      <div class="info-block-title">Jeder Reisende braucht eine eigene ETA</div>
+      Kein Gruppen- oder Familienantrag möglich. Auch Kinder und Babys brauchen eine eigene ETA mit eigenem Reisepass. Airlines, Fähren und Eurostar prüfen den ETA-Status vor dem Boarding — wer keine hat, wird nicht mitgenommen.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Neuer Reisepass = neue ETA</div>
+      Eine Passverlängerung macht bestehende ETAs automatisch ungültig. Falls jemand vor der Reise einen neuen Pass bekommt: ETA neu beantragen.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-packliste">
+    <h2>Wandern in Schottland im Oktober</h2>
+    <div class="pack-progress"><span id="pack-count">0</span> von <span id="pack-total">0</span> eingepackt <button class="pack-reset" onclick="resetPacking()" id="pack-reset-btn" hidden>Zurücksetzen</button></div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'tab-kleidung')">Kleidung</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-ausruestung')">Ausrüstung</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-navigation')">Navigation</button>
+      <button class="tab-btn" onclick="switchTab(event,'tab-sonstiges')">Sonstiges</button>
+    </div>
+
+    <div class="tab-content active" id="tab-kleidung">
+      <div class="pack-section">
+        <div class="pack-title">Schichten</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="base-top"><div class="pack-check"></div><div><div class="pack-label">Baselayer Oberkörper (Merinowolle)</div><div class="pack-note">Kein Baumwoll-T-Shirt — wird nass und kühlt aus</div></div></li>
+          <li class="pack-item" data-id="base-bottom"><div class="pack-check"></div><div><div class="pack-label">Baselayer Beine (lang)</div></div></li>
+          <li class="pack-item" data-id="midlayer"><div class="pack-check"></div><div><div class="pack-label">Midlayer / Fleece</div><div class="pack-note">Zip-Front, um Temperatur schnell zu regulieren</div></div></li>
+          <li class="pack-item" data-id="insulation"><div class="pack-check"></div><div><div class="pack-label">Isolationsjacke (Primaloft/Daune)</div><div class="pack-note">Für Gipfel und Pausen — auf 757 m ist es im Oktober deutlich kälter</div></div></li>
+          <li class="pack-item" data-id="hiking-pants"><div class="pack-check"></div><div><div class="pack-label">Wanderhose (schnelltrocknend)</div></div></li>
+          <li class="pack-item" data-id="spare-pants"><div class="pack-check"></div><div><div class="pack-label">Ersatz-Wanderhose</div><div class="pack-note">Für den nächsten Tag, wenn alles nass ist</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Wetterschutz</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="hardshell-top"><div class="pack-check"></div><div><div class="pack-label">Regenjacke (wasserdicht, atmungsaktiv)</div><div class="pack-note">Pflicht. Gore-Tex o.ä. Kapuze muss über Helm/Mütze passen</div></div></li>
+          <li class="pack-item" data-id="hardshell-bottom"><div class="pack-check"></div><div><div class="pack-label">Regenhose (wasserdicht)</div><div class="pack-note">Seitlicher Reißverschluss zum Überziehen über die Schuhe</div></div></li>
+          <li class="pack-item" data-id="hat"><div class="pack-check"></div><div><div class="pack-label">Mütze (Wolle/Fleece)</div></div></li>
+          <li class="pack-item" data-id="gloves"><div class="pack-check"></div><div><div class="pack-label">Handschuhe (winddicht)</div></div></li>
+          <li class="pack-item" data-id="buff"><div class="pack-check"></div><div><div class="pack-label">Buff / Halstuch</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Schuhe &amp; Socken</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="boots"><div class="pack-check"></div><div><div class="pack-label">Wanderstiefel (knöchelhoch, wasserdicht)</div><div class="pack-note">Der Anmarsch auf Jura ist berüchtigt nass, stellenweise knietief</div></div></li>
+          <li class="pack-item" data-id="socks"><div class="pack-check"></div><div><div class="pack-label">Wandersocken (Merino) × 3 Paar</div></div></li>
+          <li class="pack-item" data-id="gaiters"><div class="pack-check"></div><div><div class="pack-label">Gamaschen</div><div class="pack-note">Empfohlen für Jura — hält das Schlimmste aus den Stiefeln</div></div></li>
+          <li class="pack-item" data-id="camp-shoes"><div class="pack-check"></div><div><div class="pack-label">Leichte Schuhe für abends</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-ausruestung">
+      <div class="pack-section">
+        <div class="pack-title">Rucksack</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="backpack"><div class="pack-check"></div><div><div class="pack-label">Tagesrucksack (25–35 l)</div></div></li>
+          <li class="pack-item" data-id="drybag"><div class="pack-check"></div><div><div class="pack-label">Dry Bag / Rucksack-Regenhülle</div></div></li>
+          <li class="pack-item" data-id="poles"><div class="pack-check"></div><div><div class="pack-label">Wanderstöcke</div><div class="pack-note">Hilfreich im Geröll auf Beinn Shiantaidh und im nassen Moor</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Verpflegung</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="water"><div class="pack-check"></div><div><div class="pack-label">Trinkflasche / Trinkblase (mind. 1,5 l)</div></div></li>
+          <li class="pack-item" data-id="thermos"><div class="pack-check"></div><div><div class="pack-label">Thermosflasche</div><div class="pack-note">Heißer Tee am Gipfel im Oktober — unbezahlbar</div></div></li>
+          <li class="pack-item" data-id="snacks"><div class="pack-check"></div><div><div class="pack-label">Riegel, Nüsse, Trockenfrüchte</div></div></li>
+          <li class="pack-item" data-id="lunch"><div class="pack-check"></div><div><div class="pack-label">Belegtes Brot / Wraps für Jura-Tag</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Sicherheit</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="headlamp"><div class="pack-check"></div><div><div class="pack-label">Stirnlampe + Ersatzbatterien</div><div class="pack-note">Pflicht. Für jeden. Sonnenuntergang 18:35.</div></div></li>
+          <li class="pack-item" data-id="firstaid"><div class="pack-check"></div><div><div class="pack-label">Erste-Hilfe-Set</div><div class="pack-note">Blasenpflaster, Tape, Schmerzmittel, Rettungsdecke</div></div></li>
+          <li class="pack-item" data-id="whistle"><div class="pack-check"></div><div><div class="pack-label">Pfeife</div><div class="pack-note">Internationales Bergsignal: 6× pfeifen pro Minute</div></div></li>
+          <li class="pack-item" data-id="bivvy"><div class="pack-check"></div><div><div class="pack-label">Biwaksack (leicht)</div><div class="pack-note">Für den Notfall. Kein Handynetz auf den Paps.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-navigation">
+      <div class="pack-section">
+        <div class="pack-title">Karten &amp; Orientierung</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="os-map"><div class="pack-check"></div><div><div class="pack-label">OS Explorer 355 „Jura &amp; Scarba"</div><div class="pack-note">Papierkarte. Das Gelände ist weglos, bei Nebel ist Navigation die Schwierigkeit.</div></div></li>
+          <li class="pack-item" data-id="compass"><div class="pack-check"></div><div><div class="pack-label">Kompass</div></div></li>
+          <li class="pack-item" data-id="komoot"><div class="pack-check"></div><div><div class="pack-label">Komoot-Tour offline heruntergeladen</div><div class="pack-note">Corra Bheinn & Beinn Shiantaidh Schleife ab Knockrome</div></div></li>
+          <li class="pack-item" data-id="phone-case"><div class="pack-check"></div><div><div class="pack-label">Wasserdichte Handyhülle</div></div></li>
+          <li class="pack-item" data-id="powerbank"><div class="pack-check"></div><div><div class="pack-label">Powerbank (geladen)</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Optik</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="binoculars"><div class="pack-check"></div><div><div class="pack-label">Fernglas</div><div class="pack-note">Für Gänse am Gruinart, Robben bei Ardnave, Seeadler</div></div></li>
+          <li class="pack-item" data-id="camera"><div class="pack-check"></div><div><div class="pack-label">Kamera + Ersatzakku</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-sonstiges">
+      <div class="pack-section">
+        <div class="pack-title">Dokumente</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="uk-eta"><div class="pack-check"></div><div><div class="pack-label">UK ETA (genehmigt)</div><div class="pack-note">Pflicht seit April 2025. Jede Person einzeln, £20 auf gov.uk/eta</div></div></li>
+          <li class="pack-item" data-id="passport"><div class="pack-check"></div><div><div class="pack-label">Reisepass</div><div class="pack-note">Muss während des gesamten Aufenthalts gültig sein. Personalausweis reicht nicht.</div></div></li>
+          <li class="pack-item" data-id="license"><div class="pack-check"></div><div><div class="pack-label">Führerschein (für Mietwagen)</div></div></li>
+          <li class="pack-item" data-id="insurance"><div class="pack-check"></div><div><div class="pack-label">Reiseversicherung / EHIC-Karte</div></div></li>
+          <li class="pack-item" data-id="bookings"><div class="pack-check"></div><div><div class="pack-label">Buchungsbestätigungen (Flug, Fähre, Mietwagen, Unterkunft)</div></div></li>
+          <li class="pack-item" data-id="distillery-bookings"><div class="pack-check"></div><div><div class="pack-label">Destillerie-Buchungen (Kilchoman, Jura, Bruichladdich, Auchentoshan)</div></div></li>
+        </ul>
+      </div>
+      <div class="pack-section">
+        <div class="pack-title">Komfort</div>
+        <ul class="pack-list">
+          <li class="pack-item" data-id="sunglasses"><div class="pack-check"></div><div><div class="pack-label">Sonnenbrille</div><div class="pack-note">Tiefsonne im Oktober blendet</div></div></li>
+          <li class="pack-item" data-id="sunscreen"><div class="pack-check"></div><div><div class="pack-label">Sonnencreme (LSF 30+)</div><div class="pack-note">Wind und Küste — Sonnenbrand auch bei Bewölkung</div></div></li>
+          <li class="pack-item" data-id="insect"><div class="pack-check"></div><div><div class="pack-label">Mückenspray (Smidge)</div><div class="pack-note">Midges sind im Oktober selten, aber möglich</div></div></li>
+          <li class="pack-item" data-id="sitpad"><div class="pack-check"></div><div><div class="pack-label">Sitzkissen / Sitzunterlage</div><div class="pack-note">Nasser Boden, kalter Stein</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-wandern">
+    <h2>Wanderungen auf Islay</h2>
+    <p style="color:var(--text-secondary); font-size:0.92rem; margin-bottom:16px;">Alle Routen von <a href="https://www.walkhighlands.co.uk/islay-jura/islay.shtml" target="_blank" rel="noopener" class="map-link">walkhighlands.co.uk</a> — die beste Quelle für Wanderungen in Schottland. Schwierigkeit: leicht / mittel / schwer / sehr schwer.</p>
+
+    <div class="walk-area">
+      <div class="walk-area-title">Rund um Port Ellen</div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/three-distilleries.shtml" target="_blank" rel="noopener" class="walk-name map-link">Three Distilleries Walk</a><span class="walk-grade">leicht</span></div><div class="walk-stats">6,3 km · 2 h – 1 Tag</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/port-ellen.shtml" target="_blank" rel="noopener" class="walk-name map-link">Port Ellen Standing Stones</a><span class="walk-grade">leicht</span></div><div class="walk-stats">5 km · 1,5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/kildalton-cross.shtml" target="_blank" rel="noopener" class="walk-name map-link">Kildalton Cross &amp; Port Mòr</a><span class="walk-grade">leicht</span></div><div class="walk-stats">2,5 km · 1 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/carraig-fhada.shtml" target="_blank" rel="noopener" class="walk-name map-link">Carraig Fhada &amp; Singing Sands</a><span class="walk-grade">leicht</span></div><div class="walk-stats">4,4 km · 1,5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/soldiers-rock.shtml" target="_blank" rel="noopener" class="walk-name map-link">Soldier's Rock &amp; Kintra</a><span class="walk-grade">schwer</span></div><div class="walk-stats">7,7 km · 3–3,5 h</div></div>
+    </div>
+
+    <div class="walk-area">
+      <div class="walk-area-title">Oa-Halbinsel (Süden)</div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/mull-of-oa.shtml" target="_blank" rel="noopener" class="walk-name map-link">Mull of Oa &amp; American Monument</a><span class="walk-grade">leicht</span></div><div class="walk-stats">3,5 km · 1–1,5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/oa-beinn-mhor.shtml" target="_blank" rel="noopener" class="walk-name map-link">Beinn Mhòr &amp; Mull of Oa</a><span class="walk-grade">mittel</span></div><div class="walk-stats">7,6 km · 3–3,5 h</div></div>
+    </div>
+
+    <div class="walk-area">
+      <div class="walk-area-title">Westküste &amp; Rhinns</div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/machir-bay.shtml" target="_blank" rel="noopener" class="walk-name map-link">Machir Bay, Kilchoman</a><span class="walk-grade">leicht</span></div><div class="walk-stats">3,1 km · 1 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/kilchoman.shtml" target="_blank" rel="noopener" class="walk-name map-link">Turnaichaidh &amp; Machir Bay</a><span class="walk-grade">schwer</span></div><div class="walk-stats">5,7 km · 2–3 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/saligo-bay.shtml" target="_blank" rel="noopener" class="walk-name map-link">Saligo Bay &amp; Arches</a><span class="walk-grade">mittel</span></div><div class="walk-stats">5,2 km · 2–2,5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/sanaigmore.shtml" target="_blank" rel="noopener" class="walk-name map-link">Sanaigmore Bay</a><span class="walk-grade">mittel</span></div><div class="walk-stats">4,3 km · 1,5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/port-charlotte.shtml" target="_blank" rel="noopener" class="walk-name map-link">Port Charlotte → Bruichladdich</a><span class="walk-grade">leicht</span></div><div class="walk-stats">4,5 km · 1 h (einfach)</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/portnahaven.shtml" target="_blank" rel="noopener" class="walk-name map-link">Portnahaven &amp; Port Wemyss</a><span class="walk-grade">leicht</span></div><div class="walk-stats">2,5 km · 1 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/rubha-na-faing.shtml" target="_blank" rel="noopener" class="walk-name map-link">Rubha nam Faing, Portnahaven</a><span class="walk-grade">mittel</span></div><div class="walk-stats">6,5 km · 2 h</div></div>
+    </div>
+
+    <div class="walk-area">
+      <div class="walk-area-title">Nordislay &amp; Küste</div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/gruinart-rspb.shtml" target="_blank" rel="noopener" class="walk-name map-link">Loch Gruinart RSPB Trail</a><span class="walk-grade">leicht</span></div><div class="walk-stats">3,5 km · 1 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/ardnave-point.shtml" target="_blank" rel="noopener" class="walk-name map-link">Ardnave Point</a><span class="walk-grade">leicht</span></div><div class="walk-stats">5,9 km · 1,5–2 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/killinallan-point.shtml" target="_blank" rel="noopener" class="walk-name map-link">Killinallan Point, Loch Gruinart</a><span class="walk-grade">leicht</span></div><div class="walk-stats">10,1 km · 2,5–3 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/rubh-a-mhail.shtml" target="_blank" rel="noopener" class="walk-name map-link">Rhuvaal Lighthouse, Bunnahabhain</a><span class="walk-grade">mittel</span></div><div class="walk-stats">13,3 km · 4–5 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/laggan-point.shtml" target="_blank" rel="noopener" class="walk-name map-link">Laggan Point, Bowmore</a><span class="walk-grade">mittel</span></div><div class="walk-stats">13,8 km · 3,5–4 h</div></div>
+    </div>
+
+    <div class="walk-area">
+      <div class="walk-area-title">Inland &amp; Gipfel</div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/dun-nosebridge.shtml" target="_blank" rel="noopener" class="walk-name map-link">Dùn Nosebridge, Mulindry</a><span class="walk-grade">leicht</span></div><div class="walk-stats">2,25 km · 45 min</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/bridgend-woods.shtml" target="_blank" rel="noopener" class="walk-name map-link">Bridgend Woods &amp; Woollen Mill</a><span class="walk-grade">leicht</span></div><div class="walk-stats">6 km · 2 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/ballygrant-lily-loch.shtml" target="_blank" rel="noopener" class="walk-name map-link">Ballygrant &amp; Lily Loch</a><span class="walk-grade">leicht</span></div><div class="walk-stats">9,6 km · 2,5–3 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/ballygrant.shtml" target="_blank" rel="noopener" class="walk-name map-link">Finlaggan &amp; 3 Distilleries, Ballygrant</a><span class="walk-grade">leicht</span></div><div class="walk-stats">25,8 km · 5,5–7 h</div></div>
+      <div class="walk-route"><div><a href="https://www.walkhighlands.co.uk/islay-jura/beinn-bheigier.shtml" target="_blank" rel="noopener" class="walk-name map-link">Beinn Bheigier &amp; Glas Bheinn</a><span class="walk-grade">sehr schwer</span></div><div class="walk-stats">17,7 km · 7–8 h</div></div>
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Ausrüstung &amp; Sicherheit</div>
+      Auch kurze Routen auf Islay können bei Wind und Regen anspruchsvoll werden. Wasserdichte Jacke und festes Schuhwerk immer dabei. Auf den Küstenwegen: Klippen sind ungesichert. Auf Moorwegen: nasse Füße einplanen. Detaillierte Routenbeschreibungen, GPS-Tracks und aktuelle Bewertungen auf <a href="https://www.walkhighlands.co.uk/islay-jura/islay.shtml" target="_blank" rel="noopener" class="map-link">walkhighlands.co.uk</a>.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-fahrzeiten">
+    <h2>Fahrzeiten ab Port Ellen</h2>
+    <div class="table-scroll">
+    <table class="drive-table">
+      <thead><tr><th>Ziel</th><th>Dauer</th></tr></thead>
+      <tbody>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=The+Balaclava+Byre+Islay" target="_blank" rel="noopener">Balaclava Byre (Restaurant, Hofladen)</a></td><td>zu Fuß</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Co-op+Port+Ellen+Islay" target="_blank" rel="noopener">Port Ellen Ortsmitte, Co-op</a></td><td>5 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Ellen+Distillery+Islay" target="_blank" rel="noopener">Port Ellen Distillery</a> · <a class="map-link" href="https://www.malts.com/en-row/distilleries/port-ellen/" target="_blank" rel="noopener">Web</a></td><td>5 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Laphroaig+Distillery+Islay" target="_blank" rel="noopener">Laphroaig</a> · <a class="map-link" href="https://www.laphroaig.com/" target="_blank" rel="noopener">Web</a></td><td>5 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lagavulin+Distillery+Islay" target="_blank" rel="noopener">Lagavulin</a> · <a class="map-link" href="https://www.malts.com/en-row/distilleries/lagavulin/" target="_blank" rel="noopener">Web</a></td><td>8 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ardbeg+Distillery+Islay" target="_blank" rel="noopener">Ardbeg</a> · <a class="map-link" href="https://www.ardbeg.com/" target="_blank" rel="noopener">Web</a></td><td>10 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=RSPB+The+Oa+Islay" target="_blank" rel="noopener">The Oa (RSPB-Parkplatz)</a></td><td>10 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bowmore+Distillery+Islay" target="_blank" rel="noopener">Bowmore</a> · <a class="map-link" href="https://www.bowmore.com/" target="_blank" rel="noopener">Web</a></td><td>20 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kildalton+Cross+Islay" target="_blank" rel="noopener">Kildalton Cross</a>, <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Claggain+Bay+Islay" target="_blank" rel="noopener">Claggain Bay</a></td><td>30 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bruichladdich+Distillery+Islay" target="_blank" rel="noopener">Bruichladdich</a> · <a class="map-link" href="https://www.bruichladdich.com/" target="_blank" rel="noopener">Web</a>, <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Charlotte+Islay" target="_blank" rel="noopener">Port Charlotte</a></td><td>35 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kilchoman+Distillery+Islay" target="_blank" rel="noopener">Kilchoman</a> · <a class="map-link" href="https://kilchomandistillery.com/" target="_blank" rel="noopener">Web</a>, <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Machir+Bay+Islay" target="_blank" rel="noopener">Machir Bay</a></td><td>40 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Caol+Ila+Distillery+Islay" target="_blank" rel="noopener">Caol Ila</a> · <a class="map-link" href="https://www.malts.com/en-row/distilleries/caol-ila/" target="_blank" rel="noopener">Web</a></td><td>40 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=RSPB+Loch+Gruinart+Islay" target="_blank" rel="noopener">Loch Gruinart</a></td><td>45 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Askaig+Ferry+Terminal+Islay" target="_blank" rel="noopener">Port Askaig</a></td><td>45 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ardnahoe+Distillery+Islay" target="_blank" rel="noopener">Ardnahoe</a> · <a class="map-link" href="https://www.ardnahoedistillery.com/" target="_blank" rel="noopener">Web</a></td><td>45 Min.</td></tr>
+        <tr><td><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bunnahabhain+Distillery+Islay" target="_blank" rel="noopener">Bunnahabhain</a> · <a class="map-link" href="https://bunnahabhain.com/" target="_blank" rel="noopener">Web</a></td><td>50 Min.</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-praktisches">
+    <h2>Gut zu wissen</h2>
+
+    <div class="info-block warn">
+      <div class="info-block-title">Promillegrenze</div>
+      Schottland: 0,5 ‰, faktisch ein Glas. Jede Destillerie gibt Fahrerproben zum Mitnehmen. Vorher festlegen, wer fährt. Entlastung: Donnerstag zu Fuß, jeden Abend Byre nebenan.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Straßen</div>
+      Fast alles einspurig mit Passing Places. Die sind zum Ausweichen und Überholenlassen da, nicht zum Parken. Rotwild besonders in der Dämmerung.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Essen</div>
+      Balaclava Byre auf eurem Grundstück: Restaurant, Hofladen mit Islay-Lamm, Wild, Meeresfrüchte, Ausschank. Öffnungszeiten für Oktober vorher prüfen — Nebensaison. Überall auf der Insel: Tische im Voraus reservieren, das Angebot ist dünn.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Bowmore</div>
+      Hat angekündigt, im Rest von 2026 nicht zu produzieren. Eine Führung zeigt eine stillstehende Brennerei.
+    </div>
+
+    <div class="info-block">
+      <div class="info-block-title">Flaschen &amp; Flughafen</div>
+      Whiskyflaschen müssen ins aufgegebene Gepäck — über 100 ml kommen nicht durch die Handgepäckkontrolle. Gewicht einplanen.
+    </div>
+  </div>
+
+  <div class="tab-content" id="reise-kontakte">
+    <h2>Kontakte &amp; Buchungen</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div><div class="contact-name">Islay Croft (Airbnb)</div><div class="contact-detail">Gastgeber Unterkunft · Code HMSM3KRS3B</div></div>
+        <div class="contact-detail" style="text-align:right">via Airbnb-App</div>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Enterprise Glasgow Airport</div><div class="contact-detail">Mietwagen, Building 47, tägl. 06–23 Uhr</div></div>
+        <a href="tel:+441418421000" class="contact-phone">0141 842 1000</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">CHECK24 Notfall-Hotline</div><div class="contact-detail">Mietwagen-Notfall, freigeschaltet 03.–11.10.</div></div>
+        <a href="tel:+498924241142" class="contact-phone">089 2424 1142</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Sunny Cars Notfall 24/7</div><div class="contact-detail">Versicherungsfälle, Pannen, Unfälle</div></div>
+        <a href="tel:+498982993310" class="contact-phone">089 82 99 33 10</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Jura Distillery</div><div class="contact-detail">Führung buchen, Mo–Fr 10–16 Uhr</div></div>
+        <a href="tel:+441496820385" class="contact-phone">01496 820385</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Jura-Fähre Spätfahrt</div><div class="contact-detail">21:30-Spätfahrt anmelden bis 12:00 Vortag</div></div>
+        <a href="tel:+441496840681" class="contact-phone">01496 840681</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Auchentoshan Distillery</div><div class="contact-detail">Führung buchen, tägl. 10–17 Uhr</div></div>
+        <a href="tel:+441389878561" class="contact-phone">01389 878561</a>
+      </div>
+      <div class="contact-card">
+        <div><div class="contact-name">Jura Distillery (E-Mail)</div><div class="contact-detail">tours@jurawhisky.com</div></div>
+        <div class="contact-detail" style="text-align:right">E-Mail</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div><!-- /page-reise -->
+
+<!-- TAG 1: MONTAG -->
+<div class="page-content" id="page-mo">
+<div class="section">
+  <div class="day-header">
+    <div class="day-tag">Montag, 5. Oktober</div>
+    <h2>Anreise &amp; Großeinkauf</h2>
+    <div class="day-summary">Ostelsheim → STR → AMS → Glasgow → Tesco → Kennacraig → Unterkunft</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ostelsheim+Baden-W%C3%BCrttemberg" target="_blank" rel="noopener">Abfahrt Ostelsheim</a></div><div class="tl-desc">A 81 Richtung Stuttgart, dann A 8 Ausfahrt „Flughafen".</div></div></div>
+    <div class="tl-item"><div class="tl-time">07:35</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Flughafen+Stuttgart+Parken" target="_blank" rel="noopener">Parkhaus Flughafen Stuttgart</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">09:45</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Stuttgart+Airport+STR" target="_blank" rel="noopener">Stuttgart</a> → Amsterdam</div><div class="tl-desc">KL 1828 · Economy · nur Handgepäck</div></div></div>
+    <div class="tl-item"><div class="tl-time">11:05</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Amsterdam+Schiphol+Airport" target="_blank" rel="noopener">Amsterdam Schiphol</a></div><div class="tl-desc">Umsteigen · 1 h 20 min Aufenthalt</div></div></div>
+    <div class="tl-item"><div class="tl-time">12:25</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug Amsterdam → Glasgow</div><div class="tl-desc">KL 0939</div></div></div>
+    <div class="tl-item"><div class="tl-time">12:55</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glasgow+Airport+GLA" target="_blank" rel="noopener">Landung Glasgow Airport</a></div><div class="tl-desc">Ortszeit (−1 h zu Deutschland)</div></div></div>
+    <div class="tl-item"><div class="tl-time">13:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Mietwagen abholen — Enterprise</div><div class="tl-desc">Beschilderung „Car Rental Centre" folgen → Parkhaus Building 47, Enterprise-Schalter. Voucher + Reisepass + Führerschein + Kreditkarte bereithalten.</div></div></div>
+    <div class="tl-item"><div class="tl-time">13:45</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Tesco+Superstore+Paisley" target="_blank" rel="noopener">Tesco Superstore Paisley</a></div><div class="tl-desc">East Lane, PA1 1QA — Vollsortiment mit Tankstelle. Einkauf kurz halten, vorher Liste anlegen und aufteilen.</div></div></div>
+    <div class="tl-item"><div class="tl-time">14:20</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Weiterfahrt Richtung Kennacraig</div></div></div>
+    <div class="tl-item"><div class="tl-time">17:25</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kennacraig+Ferry+Terminal" target="_blank" rel="noopener">Kennacraig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">17:40</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Check-in Fähre</div></div></div>
+    <div class="tl-item"><div class="tl-time">18:10</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Fähre ab <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kennacraig+Ferry+Terminal" target="_blank" rel="noopener">Kennacraig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">20:05</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Askaig+Ferry+Terminal+Islay" target="_blank" rel="noopener">Port Askaig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">20:55</div><div class="tl-dot-col"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=55.641995,-6.201106" target="_blank" rel="noopener">Unterkunft</a></div><div class="tl-desc">Single-Track-Road bei Dunkelheit. Rotwild steht auf der Straße — langsam fahren.</div></div></div>
+  </div>
+
+  <div class="info-block warn">
+    <div class="info-block-title">Zeitpuffer: 15 Minuten</div>
+    Paisley in der Rushhour kann zäh werden. Zeitsparender Trick: Einkäufe vorab online bestellen und Click-und-Collect-Slot für den 5.10. nachmittags buchen — spart eine halbe Stunde.
+  </div>
+
+  <details>
+    <summary>Einkaufs-Alternativen</summary>
+    <div class="detail-content">
+      <p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Asda+St+James+Retail+Park+Dumbarton" target="_blank" rel="noopener"><strong>Dumbarton</strong></a> — Asda (St James Retail Park, G82 1RB) + Morrisons, M&S, Lidl, Aldi. An der A82 nach der Erskine Bridge, kaum Umweg, entspannter als Paisley.</p>
+      <p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Co-op+Lochgilphead+Oban+Road" target="_blank" rel="noopener"><strong>Co-op Lochgilphead</strong></a> — Oban Road, PA31 8NG. Direkt an der A83, Ankunft ca. 16:45. Kleiner und teurer, aber ausreichend.</p>
+      <p><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Co-op+Tarbert+Barmore+Road" target="_blank" rel="noopener"><strong>Co-op Tarbert</strong></a> — Barmore Road, PA29 6TW. 10 Min. vor dem Hafen, wird aber richtig eng.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Was einkaufen?</summary>
+    <div class="detail-content">
+      <p>Frühstück, Getränke, Wanderproviant. Fleisch, Fisch und Gemüse gibt es besser im Byre-Hofladen. Alkohol nur zwischen 10:00 und 22:00.</p>
+    </div>
+  </details>
+</div>
+</div><!-- /page-mo -->
+
+<!-- TAG 2: DIENSTAG -->
+<div class="page-content" id="page-di">
+<div class="section">
+  <div class="info-block" style="margin: 0 0 20px; border-left: 3px solid var(--accent); padding-left: 14px;">
+    <div class="info-block-title">Dienstag bis Freitag: Ideen, kein fester Plan</div>
+    Die Tagesausflüge sind Vorschläge — das Wetter auf Islay entscheidet. Tauscht Tage, kombiniert neu oder lasst etwas weg. Unter Reise → Wandern findet ihr alle Routen als Alternativprogramm.
+  </div>
+  <div class="day-header">
+    <div class="day-tag">Dienstag, 6. Oktober</div>
+    <h2>Idee: Der Norden — Gänse &amp; Dünen</h2>
+    <div class="day-summary">Loch Gruinart → Ardnave Point → Kilchoman → Machir Bay</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">08:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=RSPB+Loch+Gruinart+Visitor+Centre+Islay" target="_blank" rel="noopener">RSPB Loch Gruinart</a></div><div class="tl-desc">Weißwangen- und Blässgänse aus Grönland, morgens am eindrucksvollsten. Besucherzentrum, Beobachtungshütte, Woodland Trail (1,6 km).</div></div></div>
+    <div class="tl-item"><div class="tl-time">10:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ardnave+Point+Islay" target="_blank" rel="noopener">Ardnave Point</a></div><div class="tl-desc">Wanderung über Dünen und Machair zur Landspitze. 2–3 Stunden. Loch Ardnave, <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kilnave+Chapel+Islay" target="_blank" rel="noopener">Kilnave Chapel</a>, Robben, ggf. Seeadler.</div></div></div>
+    <div class="tl-item"><div class="tl-time">14:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kilchoman+Distillery+Islay" target="_blank" rel="noopener">Kilchoman Distillery</a></div><div class="tl-desc">Farm-Destillerie auf Rockside Farm, eigener Gerstenanbau und Mälzerei. Die inhaltlich interessanteste Führung der Insel. Café 12:00–15:30 (mit Reservierung).</div></div></div>
+    <div class="tl-item"><div class="tl-time">~16:00</div><div class="tl-dot-col"><div class="tl-dot minor"></div></div><div class="tl-content"><div class="tl-title">Optional: <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Machir+Bay+Islay" target="_blank" rel="noopener">Machir Bay</a></div><div class="tl-desc">5 Min. weiter. Rundweg 6,9 km, ca. 1:45 h. Oder nur kurz zum Strand. Achtung: Baden lebensgefährlich, brutale Strömung.</div></div></div>
+  </div>
+
+  <div class="info-block">
+    Führung und Mittagstisch bei Kilchoman vorab reservieren. Wenn ihr am Gruinart trödelt, rechtzeitig anrufen und verschieben.
+  </div>
+</div>
+</div><!-- /page-di -->
+
+<!-- TAG 3: MITTWOCH -->
+<div class="page-content" id="page-mi">
+<div class="section">
+  <div class="day-header">
+    <div class="day-tag">Mittwoch, 7. Oktober</div>
+    <h2>Idee: Jura — Corra Bheinn &amp; Beinn Shiantaidh</h2>
+    <div class="day-summary">15,9 km · 861 Hm · ~5:39 h · Schwierigkeit: schwer</div>
+  </div>
+
+  <div class="info-block warn">
+    <div class="info-block-title">Wetterabhängig</div>
+    Am Vorabend Wettervorhersage prüfen. Die Paps stecken oft in Wolken — dann Donnerstag als Ausweichtag nutzen.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abfahrt <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=55.641995,-6.201106" target="_blank" rel="noopener">Unterkunft</a></div><div class="tl-desc">Vorher auf Islay tanken — auf Jura gibt es nur eine Zapfsäule in Craighouse.</div></div></div>
+    <div class="tl-item"><div class="tl-time">07:45</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Askaig+Ferry+Terminal+Islay" target="_blank" rel="noopener">Port Askaig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">07:55</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Fähre nach <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Feolin+Ferry+Jura" target="_blank" rel="noopener">Feolin</a></div><div class="tl-desc">5 Min. Überfahrt, keine Buchung nötig, Ticket an Bord.</div></div></div>
+    <div class="tl-item"><div class="tl-time">08:25</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Corran+Bridge+Knockrome+Jura" target="_blank" rel="noopener">Parkplatz Corran-Brücke</a></div><div class="tl-desc">Am Layby nördlich der Brücke parken, nicht im Weiler Knockrome.</div></div></div>
+    <div class="tl-item"><div class="tl-time">08:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Start Wanderung</div><div class="tl-desc">Mooriger Anmarsch, stellenweise knietief. Dann Corra Bheinn, weiter auf Beinn Shiantaidh über steiles Quarzitgeröll.</div></div></div>
+    <div class="tl-item"><div class="tl-time">12:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Kontrollpunkt</div><div class="tl-desc">Nicht auf dem zweiten Gipfel? Zweiten Gipfel auslassen, direkt absteigen.</div></div></div>
+    <div class="tl-item"><div class="tl-time">14:45</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Zurück am Auto</div></div></div>
+    <div class="tl-item"><div class="tl-time">15:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jura+Distillery+Craighouse" target="_blank" rel="noopener">Jura Distillery, Craighouse</a></div><div class="tl-desc">Führung £15, vorab buchen für 14:30 oder 15:00. Tel. 01496 820385.</div></div></div>
+    <div class="tl-item"><div class="tl-time">16:20</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abfahrt <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Jura+Distillery+Craighouse" target="_blank" rel="noopener">Craighouse</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">16:45</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Fähre ab <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Feolin+Ferry+Jura" target="_blank" rel="noopener">Feolin</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">18:00</div><div class="tl-dot-col"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-title">Zurück in der <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=55.641995,-6.201106" target="_blank" rel="noopener">Unterkunft</a></div></div></div>
+  </div>
+
+  <div class="info-block danger">
+    <div class="info-block-title">Hirschjagd</div>
+    Brunftjagd bis 20. Oktober. Jura wird intensiv bejagt. Vorher beim Jura Hotel oder Community Shop in Craighouse fragen, ob an dem Tag auf den Paps gepirscht wird.
+  </div>
+
+  <details>
+    <summary>Fähre Port Askaig – Feolin: Alle Zeiten</summary>
+    <div class="detail-content">
+      <p>Mo–Sa: 07:35, 07:55, 08:30, 09:30, 10:00, 10:30, 11:15, 12:15, 13:10, 14:15, 15:15, 16:10, 16:45, 17:45, 18:30</p>
+      <p><strong>Spätfahrt 21:30</strong> — buchbar bis 12:00 am Vortag unter 01496 840681. Kostet nichts extra.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Alternative: Beinn an Òir statt Beinn Shiantaidh</summary>
+    <div class="detail-content">
+      <p>19,8 km, 876 Hm, 6:35 h. Technisch freundlicher, aber zu lang für die Destillerie danach. Nur mit der 07:35-Fähre machbar, dann ohne Führung.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Schlechtwetter-Alternative</summary>
+    <div class="detail-content">
+      <p>Trotzdem nach Jura, aber ohne Gipfel. Destillerie in Ruhe, Craighouse, Alter Pier, Galerien, Straße Richtung Ardlussa. Die Berge dann Donnerstag nachholen.</p>
+    </div>
+  </details>
+</div>
+</div><!-- /page-mi -->
+
+<!-- TAG 4: DONNERSTAG -->
+<div class="page-content" id="page-do">
+<div class="section">
+  <div class="day-header">
+    <div class="day-tag">Donnerstag, 8. Oktober</div>
+    <h2>Idee: Three Distilleries Path</h2>
+    <div class="day-summary">Port Ellen → Laphroaig → Lagavulin → Ardbeg · ~11 km zu Fuß</div>
+  </div>
+
+  <div class="info-block">
+    <div class="info-block-title">Ausweichtag Jura</div>
+    Falls Mittwoch wegen Wetter ausfällt, geht die Jura-Tour heute. Ansonsten der perfekte Tag nach den Paps, weil das Auto stehen bleiben kann.
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">~09:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Auto am Hafen <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Ellen+Harbour+Islay" target="_blank" rel="noopener">Port Ellen</a> abstellen</div><div class="tl-desc">Nicht von der Unterkunft loslaufen — würde auf 19 km aufblähen.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~09:15</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Laphroaig+Distillery+Islay" target="_blank" rel="noopener">Laphroaig</a></div><div class="tl-desc">Asphaltierter Weg ab Ostrand Port Ellen. Shop und Dram an der Bar oder Führung.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~10:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lagavulin+Distillery+Islay" target="_blank" rel="noopener">Lagavulin</a></div><div class="tl-desc">Eine richtige Führung einplanen, die anderen beiden für Shop und Dram.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~12:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ardbeg+Distillery+Islay" target="_blank" rel="noopener">Ardbeg</a> &amp; Old Kiln Café</div><div class="tl-desc">Mittagstisch im Café. Reservierung im Oktober ratsam.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~14:30</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Rückweg nach <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Ellen+Harbour+Islay" target="_blank" rel="noopener">Port Ellen</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">~16:00</div><div class="tl-dot-col"><div class="tl-dot minor"></div></div><div class="tl-content"><div class="tl-title">Optional: <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kildalton+Cross+Islay" target="_blank" rel="noopener">Kildalton Cross</a> &amp; <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Claggain+Bay+Islay" target="_blank" rel="noopener">Claggain Bay</a></div><div class="tl-desc">Das besterhaltene keltische Hochkreuz Schottlands. Einsame Bucht.</div></div></div>
+  </div>
+
+  <div class="info-block">
+    Der große Vorteil: ihr geht zu Fuß und könnt in allen drei Destillerien tatsächlich trinken. Genau dafür ist der Weg gebaut.
+  </div>
+</div>
+</div><!-- /page-do -->
+
+<!-- TAG 5: FREITAG -->
+<div class="page-content" id="page-fr">
+<div class="section">
+  <div class="day-header">
+    <div class="day-tag">Freitag, 9. Oktober</div>
+    <h2>Idee: The Oa &amp; die Rhinns</h2>
+    <div class="day-summary">American Monument → Bruichladdich → Port Charlotte → Portnahaven</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">~08:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=American+Monument+Islay+Oa" target="_blank" rel="noopener">American Monument</a>, The Oa</div><div class="tl-desc">10 Min. Fahrt. <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=RSPB+The+Oa+Car+Park+Islay" target="_blank" rel="noopener">RSPB-Parkplatz Upper Killeyan</a> (PA42 7AU). Rundweg 3,5 km, 1–1,5 h. 131 m hohe Klippen. Alpenkrähen, Steinadler, wilde Ziegen. Sehr exponiert — Regenzeug mitnehmen.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~11:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Bruichladdich+Distillery+Islay" target="_blank" rel="noopener">Bruichladdich</a></div><div class="tl-desc">Täglich bis Ende Oktober 9:45–17:30. Führungen und Warehouse Tastings online buchbar. Größtenteils ungetorft, ganz anderer Charakter.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~13:30</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Charlotte+Islay" target="_blank" rel="noopener">Port Charlotte</a></div><div class="tl-desc">Das hübscheste Dorf der Insel. Bummel.</div></div></div>
+    <div class="tl-item"><div class="tl-time">~15:30</div><div class="tl-dot-col"><div class="tl-dot minor"></div></div><div class="tl-content"><div class="tl-title">Optional: <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Portnahaven+Islay" target="_blank" rel="noopener">Portnahaven</a></div><div class="tl-desc">Seehunde im Hafenbecken. Kurzer Weg zur Rubha na Faing mit Blick auf die Leuchtturminsel Orsay.</div></div></div>
+  </div>
+
+  <div class="info-block">
+    Abends: tanken, packen, früh essen, früh ins Bett. Am nächsten Morgen geht die Fähre um 07:00.
+  </div>
+</div>
+</div><!-- /page-fr -->
+
+<!-- TAG 6: SAMSTAG -->
+<div class="page-content" id="page-sa">
+<div class="section">
+  <div class="day-header">
+    <div class="day-tag">Samstag, 10. Oktober</div>
+    <h2>Abreise &amp; Auchentoshan</h2>
+    <div class="day-summary">Port Askaig → Kennacraig → Auchentoshan → GLA → AMS → STR → Ostelsheim</div>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-time">05:40</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abfahrt <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=55.641995,-6.201106" target="_blank" rel="noopener">Unterkunft</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">06:30</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Check-in <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Askaig+Ferry+Terminal+Islay" target="_blank" rel="noopener">Port Askaig</a></div><div class="tl-desc">30 Min. vor Abfahrt Pflicht.</div></div></div>
+    <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Fähre ab <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Port+Askaig+Ferry+Terminal+Islay" target="_blank" rel="noopener">Port Askaig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">08:55</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kennacraig+Ferry+Terminal" target="_blank" rel="noopener">Kennacraig</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">11:20</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Auchentoshan+Distillery+Clydebank" target="_blank" rel="noopener">Auchentoshan Distillery</a></div><div class="tl-desc">By Dalmuir, G81 4SJ. Einzige Dreifachdestillation Schottlands. Lowland, kein Torf. Führung für 11:30 oder 12:00 buchen. Tel. +44 1389 878561.</div></div></div>
+    <div class="tl-item"><div class="tl-time">14:15</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abfahrt <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Auchentoshan+Distillery+Clydebank" target="_blank" rel="noopener">Auchentoshan</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">14:35</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Mietwagenrückgabe <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glasgow+Airport+GLA" target="_blank" rel="noopener">Flughafen</a></div><div class="tl-desc">Zurück zum Parkhaus Building 47. Vorher volltanken (faire Tankregelung).</div></div></div>
+    <div class="tl-item"><div class="tl-time">17:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glasgow+Airport+GLA" target="_blank" rel="noopener">Glasgow</a> → Amsterdam</div><div class="tl-desc">KL 0942 · Ortszeit Glasgow</div></div></div>
+    <div class="tl-item"><div class="tl-time">19:35</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Amsterdam+Schiphol+Airport" target="_blank" rel="noopener">Amsterdam Schiphol</a></div><div class="tl-desc">Umsteigen · 1 h 45 min Aufenthalt</div></div></div>
+    <div class="tl-item"><div class="tl-time">21:20</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug Amsterdam → Stuttgart</div><div class="tl-desc">KL 1835</div></div></div>
+    <div class="tl-item"><div class="tl-time">22:35</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Landung <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Stuttgart+Airport+STR" target="_blank" rel="noopener">Stuttgart Flughafen</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">22:50</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Auto aus Parkhaus</div><div class="tl-desc">Nur Handgepäck — kein Warten am Band.</div></div></div>
+    <div class="tl-item"><div class="tl-time">23:30</div><div class="tl-dot-col"><div class="tl-dot"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ostelsheim+Baden-W%C3%BCrttemberg" target="_blank" rel="noopener">Ankunft Ostelsheim</a></div></div></div>
+  </div>
+
+  <div class="info-block danger">
+    <div class="info-block-title">Fähre ist Pflicht, nicht Option</div>
+    Fällt die 07:00-Fähre aus, bringt die nächste um 12:35 euch erst gegen 17:30 an den Flughafen — Flug weg. Auchentoshan dann ersatzlos streichen.
+  </div>
+
+  <details>
+    <summary>Alternative: Glengoyne statt Auchentoshan</summary>
+    <div class="detail-content">
+      <p>Bei Dumgoyne am Fuß der Campsie Fells. Landschaftlich deutlich schöner, aber gut 40 Min. Umweg über Drymen/A81. Nur wenn die Fähre pünktlich war. <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Glengoyne+Distillery+Dumgoyne" target="_blank" rel="noopener">Karte</a></p>
+    </div>
+  </details>
+</div>
+</div><!-- /page-sa -->
+
+<div class="footer">
+  Fährzeiten und Öffnungszeiten nach Stand August 2026. Jura-Fahrplan gilt bis 18.10.2026. Vor Buchung gegenprüfen.
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+function switchTab(e, tabId) {
+  var btn = e.target.closest('.tab-btn');
+  var tabBar = btn.closest('.tabs');
+  var parent = tabBar.parentElement;
+  tabBar.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  Array.prototype.forEach.call(parent.children, function(c) {
+    if (c.classList.contains('tab-content')) c.classList.remove('active');
+  });
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
+
+function loadPacking() {
+  var stored = {};
+  try { stored = JSON.parse(localStorage.getItem('islay-pack') || '{}'); } catch(e) {}
+  var items = document.querySelectorAll('.pack-item');
+  var total = items.length;
+  var checked = 0;
+  items.forEach(function(item) {
+    var id = item.getAttribute('data-id');
+    if (stored[id]) {
+      item.classList.add('checked');
+      checked++;
+    }
+    item.addEventListener('click', function() {
+      item.classList.toggle('checked');
+      try {
+        var s = JSON.parse(localStorage.getItem('islay-pack') || '{}');
+        if (item.classList.contains('checked')) { s[id] = true; } else { delete s[id]; }
+        localStorage.setItem('islay-pack', JSON.stringify(s));
+      } catch(e) {}
+      updateCount();
+    });
+  });
+  document.getElementById('pack-total').textContent = total;
+  updateCount();
+}
+
+function updateCount() {
+  var checked = document.querySelectorAll('.pack-item.checked').length;
+  document.getElementById('pack-count').textContent = checked;
+  var btn = document.getElementById('pack-reset-btn');
+  if (checked > 0) { btn.hidden = false; } else { btn.hidden = true; }
+}
+
+function resetPacking() {
+  document.querySelectorAll('.pack-item').forEach(function(item) {
+    item.classList.remove('checked');
+  });
+  try { localStorage.removeItem('islay-pack'); } catch(e) {}
+  updateCount();
+}
+
+loadPacking();
+
+function switchPage(e, pageId) {
+  e.preventDefault();
+  document.querySelectorAll('.page-content').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.day-nav a').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById(pageId).classList.add('active');
+  e.target.closest('a').classList.add('active');
+  window.scrollTo(0, 0);
+}
+</script>
+</body>
+</html>
