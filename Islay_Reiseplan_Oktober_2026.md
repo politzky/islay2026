@@ -35,29 +35,27 @@ Der Norden und die Rhinns sind echte Tagesfahrten. Die Tage sind deshalb so geb�
 
 ## Montag, 5.10. – Anreise und Großeinkauf
 
-**Einkaufsstopp: Tesco Superstore Paisley**, East Lane, PA1 1QA. Rund zehn Minuten südlich vom Flughafen, montags bis samstags von 06:00 bis 24:00 geöffnet. Großes Vollsortiment mit Tankstelle.
+**Einkaufsstopp: Dumbarton**, Asda St James Retail Park, G82 1RB. Direkt an der A82 nach der Erskine Bridge, etwa zehn Minuten nach der Brücke und kaum ein Umweg. Daneben Morrisons (G82 1QZ), M&S, Lidl und Aldi. Der Weg dorthin ist entspannter als durch Paisley.
 
 | Zeit | |
 |---|---|
 | 13:00 | Landung Glasgow |
 | ca. 13:45 | Mietwagen übernommen |
-| ca. 14:00 | Tesco Paisley |
+| ca. 14:00 | Dumbarton, Asda |
 | ca. 14:35 | weiter, nach gut 30 Min. Einkauf |
 | ca. 17:25 | Kennacraig |
 | 17:40 | Check-in |
 | 18:10 | Fähre |
 
-**Das ist knapp.** Bleiben rund fünfzehn Minuten Reserve, und die Stadtdurchfahrt in Paisley kann zur Rushhour zäh werden. Haltet den Einkauf kurz und zielgerichtet, das ist kein Bummel. Legt vorher eine Liste an und teilt euch im Laden auf.
+Haltet den Einkauf kurz und zielgerichtet, das ist kein Bummel. Legt vorher eine Liste an und teilt euch im Laden auf.
 
-Wenn ihr am Flughafen schon spät dran seid, lasst Paisley aus und fahrt durch. Einkaufen könnt ihr dann im **Co-op Lochgilphead** (Oban Road, PA31 8NG) direkt an der A83, den ihr gegen 16:45 erreicht – kleiner und teurer, aber ausreichend. Letzte Möglichkeit wäre der Co-op in Tarbert (Barmore Road, PA29 6TW), zehn Minuten vor dem Hafen, das wird dann aber richtig eng.
-
-**Zeitsparender Trick:** Bestellt die Einkäufe vorab online bei Tesco und bucht einen Click-und-Collect-Slot für den Nachmittag des 5.10. in Paisley. Dann fahrt ihr vor, ladet ein und seid in zehn Minuten wieder weg. Das holt euch eine gute halbe Stunde Puffer zurück.
-
-**Alternative weiter auf der Strecke:** Wenn euch Paisley zu eng wird, liegt in **Dumbarton** an der Glasgow Road direkt an der A82 ein großes Asda (St James Retail Park, G82 1RB) neben einem Morrisons (G82 1QZ), dazu M&S, Lidl und Aldi. Etwa zehn Minuten nach der Erskine Bridge und kaum ein Umweg – zeitlich läuft das aufs Gleiche hinaus, aber der Weg dorthin ist entspannter als durch Paisley.
+Wenn ihr am Flughafen schon spät dran seid, lasst Dumbarton aus und fahrt durch. Einkaufen könnt ihr dann im **Co-op Lochgilphead** (Oban Road, PA31 8NG) direkt an der A83, den ihr gegen 16:45 erreicht – kleiner und teurer, aber ausreichend. Letzte Möglichkeit wäre der Co-op in Tarbert (Barmore Road, PA29 6TW), zehn Minuten vor dem Hafen, das wird dann aber richtig eng.
 
 Was ihr braucht: Frühstück, Getränke, Proviant für die Wanderungen. Fleisch, Fisch und Gemüse bekommt ihr besser im Hofladen nebenan. Alkohol wird in Schottland nur zwischen 10:00 und 22:00 verkauft.
 
-**Ankunft.** Fähre an in Port Askaig um 20:05, dann rund 45 Minuten bis zur Unterkunft, Ankunft gegen 20:55. Für das Abendessen ist es zu spät, auch der Byre nebenan wird die Küche zu haben. Esst vorher in Tarbert oder am Fährterminal, oder nehmt euch etwas mit.
+**Einkauf auf Islay.** Falls ihr auf dem Festland gar nicht zum Einkaufen kommt: der **Co-op Bowmore** (Main Street, PA43 7JN) hat montags bis 22:00 geöffnet und liegt auf dem Weg von Port Askaig zur Unterkunft. Ankunft dort gegen 20:30, also anderthalb Stunden Zeit. Grundversorgung, Getränke und Frühstück für den nächsten Morgen.
+
+**Ankunft.** Fähre an in Port Askaig um 20:05, dann rund 25 Minuten bis Bowmore (Einkauf) und weitere 20 Minuten zur Unterkunft, Ankunft gegen 21:15. Für das Abendessen ist es zu spät, auch der Byre nebenan wird die Küche zu haben. Esst vorher in Tarbert oder am Fährterminal, oder nehmt euch etwas mit.
 
 Single-Track-Road bei Dunkelheit, Rotwild steht gern auf der Straße. Langsam fahren.
 
