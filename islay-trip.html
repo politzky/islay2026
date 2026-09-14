@@ -644,7 +644,7 @@ details .detail-content p { margin-bottom: 8px; }
 <div class="hero">
   <div class="wrap">
     <h1>Islay &amp; Jura</h1>
-    <div class="hero-sub">5.–10. Oktober 2026</div>
+    <div class="hero-sub">5.–10. Oktober 2026 · <span style="font-weight:400; opacity:0.7;">Letzte Änderung am <span id="last-updated"></span></span></div>
   </div>
 </div>
 <!-- DAY NAV outside hero for sticky to work -->
@@ -1264,6 +1264,9 @@ details .detail-content p { margin-bottom: 8px; }
       </div>
     </div>
   </div>
+  <div class="footer">
+    Fährzeiten und Öffnungszeiten nach Stand August 2026. Jura-Fahrplan gilt bis 18.10.2026. Vor Buchung gegenprüfen.
+  </div>
 </div>
 </div><!-- /page-reise -->
 
@@ -1397,6 +1400,10 @@ details .detail-content p { margin-bottom: 8px; }
       <p>Trotzdem nach Jura, aber ohne Gipfel. Destillerie in Ruhe, Craighouse, Alter Pier, Galerien, Straße Richtung Ardlussa. Die Berge dann Donnerstag nachholen.</p>
     </div>
   </details>
+
+  <div class="footer">
+    Fährzeiten und Öffnungszeiten nach Stand August 2026. Jura-Fahrplan gilt bis 18.10.2026. Vor Buchung gegenprüfen.
+  </div>
 </div>
 </div><!-- /page-mi -->
 
@@ -1490,13 +1497,19 @@ details .detail-content p { margin-bottom: 8px; }
 </div>
 </div><!-- /page-sa -->
 
-<div class="footer">
-  Fährzeiten und Öffnungszeiten nach Stand August 2026. Jura-Fahrplan gilt bis 18.10.2026. Vor Buchung gegenprüfen.
-</div>
 
 </div><!-- /wrap -->
 
 <script>
+(function() {
+  var d = new Date(document.lastModified);
+  var day = d.getDate();
+  var months = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+  var h = d.getHours();
+  var m = d.getMinutes();
+  document.getElementById('last-updated').textContent = day + '. ' + months[d.getMonth()] + ' ' + d.getFullYear() + ', ' + h + ':' + (m < 10 ? '0' : '') + m;
+})();
+
 function switchTab(e, tabId) {
   var btn = e.target.closest('.tab-btn');
   var tabBar = btn.closest('.tabs');
