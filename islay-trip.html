@@ -446,6 +446,37 @@ details .detail-content p { margin-bottom: 8px; }
   font-weight: 600;
 }
 .eta-fact-value { font-weight: 700; font-size: 0.95rem; }
+
+.secret {
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  letter-spacing: 0.12em;
+  color: var(--text-tertiary);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 8px;
+  line-height: 1.5;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  vertical-align: baseline;
+}
+.secret:hover { border-color: var(--accent-border); color: var(--accent); }
+.secret:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.secret.revealed {
+  letter-spacing: 0.02em;
+  color: var(--text);
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
+  font-variant-numeric: tabular-nums;
+  user-select: text;
+  -webkit-user-select: text;
+}
+@media print {
+  .secret { background: none; border: none; padding: 0; letter-spacing: normal; color: var(--text); }
+}
+
 .eta-steps { margin-top: 14px; }
 .eta-step {
   display: flex;
@@ -701,7 +732,7 @@ details .detail-content p { margin-bottom: 8px; }
       <div class="reise-card">
         <div class="hero-card-label">Mietwagen</div>
         <div class="hero-card-value">Ford Tourneo 9-Sitzer</div>
-        <div class="hero-card-detail">Enterprise · Automatik · Buchung 16182696</div>
+        <div class="hero-card-detail">Enterprise · Automatik · Buchung <span class="secret" data-code="16182696" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungsnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
       </div>
       <div class="reise-card">
         <div class="hero-card-label">Tageslicht</div>
@@ -745,7 +776,7 @@ details .detail-content p { margin-bottom: 8px; }
     </div>
 
     <div class="flight-meta">
-      <span>Buchungscode: <strong>YW89O8</strong></span>
+      <span>Buchungscode: <strong><span class="secret" data-code="YW89O8" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungscode anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;</span></strong></span>
       <span>Nur Handgepäck (12 kg)</span>
       <span>Kein aufgegebenes Gepäck</span>
     </div>
@@ -767,11 +798,11 @@ details .detail-content p { margin-bottom: 8px; }
     <div class="eta-grid" style="margin-bottom: 16px;">
       <div class="eta-fact">
         <div class="eta-fact-label">Buchungsnr.</div>
-        <div class="eta-fact-value">S2601487064</div>
+        <div class="eta-fact-value"><span class="secret" data-code="S2601487064" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungsnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
       </div>
       <div class="eta-fact">
         <div class="eta-fact-label">Ticketnr.</div>
-        <div class="eta-fact-value">SI2602835521</div>
+        <div class="eta-fact-value"><span class="secret" data-code="SI2602835521" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Ticketnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
       </div>
       <div class="eta-fact">
         <div class="eta-fact-label">Passagiere</div>
@@ -833,7 +864,7 @@ details .detail-content p { margin-bottom: 8px; }
     <div class="eta-grid" style="margin-bottom: 16px;">
       <div class="eta-fact">
         <div class="eta-fact-label">Buchungsnr.</div>
-        <div class="eta-fact-value">16182696</div>
+        <div class="eta-fact-value"><span class="secret" data-code="16182696" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungsnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
       </div>
       <div class="eta-fact">
         <div class="eta-fact-label">Fahrzeug</div>
@@ -919,7 +950,7 @@ details .detail-content p { margin-bottom: 8px; }
       </div>
       <div class="eta-fact">
         <div class="eta-fact-label">Bestätigungscode</div>
-        <div class="eta-fact-value">HMSM3KRS3B</div>
+        <div class="eta-fact-value"><span class="secret" data-code="HMSM3KRS3B" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Bestätigungscode anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div>
       </div>
       <div class="eta-fact">
         <div class="eta-fact-label">Check-in-Methode</div>
@@ -1229,7 +1260,7 @@ details .detail-content p { margin-bottom: 8px; }
     <h2>Kontakte &amp; Buchungen</h2>
     <div class="contact-grid">
       <div class="contact-card">
-        <div><div class="contact-name">Islay Croft (Airbnb)</div><div class="contact-detail">Gastgeber Unterkunft · Code HMSM3KRS3B</div></div>
+        <div><div class="contact-name">Islay Croft (Airbnb)</div><div class="contact-detail">Gastgeber Unterkunft · Code <span class="secret" data-code="HMSM3KRS3B" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Bestätigungscode anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div></div>
         <div class="contact-detail" style="text-align:right">via Airbnb-App</div>
       </div>
       <div class="contact-card">
@@ -1245,7 +1276,7 @@ details .detail-content p { margin-bottom: 8px; }
         <a href="tel:+498982993310" class="contact-phone">089 82 99 33 10</a>
       </div>
       <div class="contact-card">
-        <div><div class="contact-name"><a class="map-link" href="https://www.calmac.co.uk" target="_blank" rel="noopener">CalMac Ferries</a></div><div class="contact-detail">Fähre Kennacraig–Port Askaig · Buchung S2601487064</div></div>
+        <div><div class="contact-name"><a class="map-link" href="https://www.calmac.co.uk" target="_blank" rel="noopener">CalMac Ferries</a></div><div class="contact-detail">Fähre Kennacraig–Port Askaig · Buchung <span class="secret" data-code="S2601487064" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungsnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span></div></div>
         <a href="tel:+448006665000" class="contact-phone">0800 066 5000</a>
       </div>
       <div class="contact-card">
@@ -1280,7 +1311,7 @@ details .detail-content p { margin-bottom: 8px; }
 
   <div class="timeline">
     <div class="tl-item"><div class="tl-time">07:00</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Ostelsheim+Baden-W%C3%BCrttemberg" target="_blank" rel="noopener">Abfahrt Ostelsheim</a></div><div class="tl-desc">Steffen fährt mit seinem VW Bus. Treffen bei Pit vor der Tür. Arno holen wir dann auf dem Weg ab.</div></div></div>
-    <div class="tl-item"><div class="tl-time">07:35</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Parkhaus+P14+Flughafen+Stuttgart" target="_blank" rel="noopener">Parkhaus P14, Flughafen Stuttgart</a></div><div class="tl-desc">Buchung 8547214 · 138,90 € · <a class="map-link" href="https://parken.flughafen-stuttgart.de/QrImage/8547214" target="_blank" rel="noopener">QR-Code für Ein-/Ausfahrt</a></div></div></div>
+    <div class="tl-item"><div class="tl-time">07:35</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title"><a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Parkhaus+P14+Flughafen+Stuttgart" target="_blank" rel="noopener">Parkhaus P14, Flughafen Stuttgart</a></div><div class="tl-desc">Buchung <span class="secret" data-code="8547214" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungsnummer anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;&bull;</span> · 138,90 € · <a class="map-link" href="https://parken.flughafen-stuttgart.de/QrImage/8547214" target="_blank" rel="noopener">QR-Code für Ein-/Ausfahrt</a></div></div></div>
     <div class="tl-item"><div class="tl-time">09:45</div><div class="tl-dot-col"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Stuttgart+Airport+STR" target="_blank" rel="noopener">Stuttgart</a> → Amsterdam</div><div class="tl-desc">KL 1828 · Economy · nur Handgepäck</div></div></div>
     <div class="tl-item"><div class="tl-time">11:05</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Ankunft <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Amsterdam+Schiphol+Airport" target="_blank" rel="noopener">Amsterdam Schiphol</a></div><div class="tl-desc">Umsteigen · 1 h 20 min Aufenthalt</div></div></div>
     <div class="tl-item"><div class="tl-time">12:25</div><div class="tl-dot-col"><div class="tl-dot minor"></div><div class="tl-line"></div></div><div class="tl-content"><div class="tl-title">Abflug Amsterdam → Glasgow</div><div class="tl-desc">KL 0939</div></div></div>
@@ -1565,6 +1596,22 @@ function resetPacking() {
 }
 
 loadPacking();
+
+function toggleSecret(el) {
+  if (el.classList.contains('revealed')) {
+    el.classList.remove('revealed');
+    el.textContent = el.dataset.mask;
+    el.title = 'Tippen zum Anzeigen';
+  } else {
+    el.classList.add('revealed');
+    el.textContent = el.dataset.code;
+    el.title = 'Tippen zum Verbergen';
+  }
+}
+
+document.querySelectorAll('.secret').forEach(function(el) {
+  el.dataset.mask = el.textContent;
+});
 
 function switchPage(e, pageId) {
   e.preventDefault();
