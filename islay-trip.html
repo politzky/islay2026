@@ -659,6 +659,26 @@ details .detail-content p { margin-bottom: 8px; }
   flex-wrap: wrap;
 }
 .flight-meta strong { color: var(--text); font-weight: 700; }
+.copy-btn {
+  font: inherit; font-size: 0.75rem; font-weight: 600;
+  margin-left: 6px; padding: 2px 9px;
+  color: var(--accent); background: transparent;
+  border: 1px solid var(--accent-border); border-radius: 5px;
+  cursor: pointer; vertical-align: baseline;
+  transition: background 0.15s, color 0.15s;
+}
+.copy-btn:hover, .copy-btn:focus-visible { background: var(--accent-bg); outline: none; }
+.copy-btn.done { color: var(--text); background: var(--accent-bg); }
+.klm-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 6px 0 6px; }
+.klm-btn {
+  display: inline-block; padding: 9px 16px;
+  font-size: 0.9rem; font-weight: 600; text-decoration: none;
+  color: #fff; background: var(--accent);
+  border-radius: 8px; transition: opacity 0.15s;
+}
+.klm-btn:hover, .klm-btn:focus-visible { opacity: 0.88; outline: none; }
+.klm-hint { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 18px; }
+@media print { .copy-btn, .klm-actions { display: none; } }
 
 /* ===== VERY SMALL PHONE (up to 380px) ===== */
 @media (max-width: 380px) {
@@ -743,7 +763,7 @@ details .detail-content p { margin-bottom: 8px; }
   </div>
 
   <div class="tab-content" id="reise-fluege">
-    <h2>KLM via Amsterdam Schiphol</h2>
+    <h2><a href="https://www.klm.de/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: underline; text-underline-offset: 3px;">KLM</a> via Amsterdam Schiphol</h2>
 
     <div class="flight-card">
       <div class="flight-dir">Hinflug — Montag 5. Oktober</div>
@@ -776,10 +796,16 @@ details .detail-content p { margin-bottom: 8px; }
     </div>
 
     <div class="flight-meta">
-      <span>Buchungscode: <strong><span class="secret" data-code="YW89O8" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungscode anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;</span></strong></span>
+      <span>Buchungscode: <strong><span class="secret" data-code="YW89O8" role="button" tabindex="0" title="Tippen zum Anzeigen" aria-label="Buchungscode anzeigen" onclick="toggleSecret(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSecret(this);}">&bull;&bull;&bull;&bull;&bull;&bull;</span></strong> <button type="button" class="copy-btn" onclick="copyCode(this, 'YW89O8')" aria-label="Buchungscode kopieren">Kopieren</button></span>
       <span>Nur Handgepäck (12 kg)</span>
       <span>Kein aufgegebenes Gepäck</span>
     </div>
+
+    <div class="klm-actions">
+      <a class="klm-btn" href="https://www.klm.de/trip" target="_blank" rel="noopener">Meine Reise bei KLM</a>
+      <a class="klm-btn" href="https://www.klm.de/check-in" target="_blank" rel="noopener">Online-Check-in</a>
+    </div>
+    <div class="klm-hint">Login mit Buchungscode + Nachname eines Reisenden. Code oben kopieren, auf der KLM-Seite einfügen. Check-in öffnet in der Regel 30 Std. vor Abflug.</div>
 
     <div class="info-block warn">
       <div class="info-block-title">Whisky im Handgepäck?</div>
@@ -1592,6 +1618,25 @@ function resetPacking() {
 }
 
 loadPacking();
+
+function copyCode(btn, code) {
+  var done = function() {
+    btn.textContent = 'Kopiert ✓';
+    btn.classList.add('done');
+    setTimeout(function() { btn.textContent = 'Kopieren'; btn.classList.remove('done'); }, 1800);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(code).then(done, function() { fallbackCopy(code); done(); });
+  } else { fallbackCopy(code); done(); }
+}
+function fallbackCopy(text) {
+  var t = document.createElement('textarea');
+  t.value = text; t.setAttribute('readonly', '');
+  t.style.position = 'fixed'; t.style.opacity = '0';
+  document.body.appendChild(t); t.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(t);
+}
 
 function toggleSecret(el) {
   if (el.classList.contains('revealed')) {
