@@ -678,6 +678,11 @@ details .detail-content p { margin-bottom: 8px; }
 }
 .klm-btn:hover, .klm-btn:focus-visible { opacity: 0.88; outline: none; }
 .album { margin-bottom: 28px; }
+.upload-box {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+  background: var(--accent-bg); border: 1px solid var(--accent-border);
+  border-radius: 10px; padding: 14px 16px; margin-bottom: 18px;
+}
 .album-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
 .album-title { font-size: 1.15rem; font-weight: 700; color: var(--text); }
 .album-sub { font-size: 0.85rem; color: var(--text-secondary); }
@@ -755,7 +760,7 @@ details .detail-content p { margin-bottom: 8px; }
     <button class="tab-btn" onclick="switchTab(event,'reise-fahrzeiten')">Fahrzeiten</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-praktisches')">Praktisches</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-kontakte')">Kontakte</button>
-    <button class="tab-btn" onclick="switchTab(event,'reise-bilder'); loadAlbums();">Bilder</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-bilder'); loadAlbums('reise-bilder');">Bilder</button>
   </div>
 
   <div class="tab-content active" id="reise-uebersicht">
@@ -1349,17 +1354,79 @@ details .detail-content p { margin-bottom: 8px; }
   <div class="tab-content" id="reise-bilder">
     <h2>Bilder</h2>
 
-    <div class="album" data-code="kZhF1k7ZG5Cv7p1hgE7z6L7rCwGG1JCG4dP7">
-      <div class="album-head">
-        <div>
-          <div class="album-title">Skye 2022</div>
-          <div class="album-sub">Fotos von unserer letzten Schottland-Tour</div>
-        </div>
-        <a class="klm-btn album-link" href="https://e.pcloud.link/publink/show?code=kZhF1k7ZG5Cv7p1hgE7z6L7rCwGG1JCG4dP7" target="_blank" rel="noopener">Alle Fotos öffnen</a>
+    <div class="upload-box">
+      <div>
+        <div class="album-title">Eigene Fotos hochladen</div>
+        <div class="album-sub">Direkt ins Album, ganz ohne Anmeldung.</div>
       </div>
-      <div class="album-hint">Im Album lassen sich einzelne Bilder oder das ganze Album herunterladen.</div>
-      <div class="album-grid"></div>
-      <div class="album-status">Vorschau wird geladen …</div>
+      <a class="klm-btn" href="https://e.pcloud.com/#page=puplink&amp;code=PoN7ZMipAKU13378yFdXcACaPeVfVtL3k" target="_blank" rel="noopener">Fotos hochladen</a>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event,'bilder-islay'); loadAlbums('bilder-islay');">Islay 2026</button>
+      <button class="tab-btn" onclick="switchTab(event,'bilder-glasgow'); loadAlbums('bilder-glasgow');">Glasgow</button>
+      <button class="tab-btn" onclick="switchTab(event,'bilder-speyside'); loadAlbums('bilder-speyside');">Speyside 2023</button>
+      <button class="tab-btn" onclick="switchTab(event,'bilder-skye'); loadAlbums('bilder-skye');">Skye 2022</button>
+    </div>
+
+    <div class="tab-content active" id="bilder-islay">
+      <div class="album" data-code="kZHz1k7ZBimLbT45EEzrxmQAz8RE2VzaYOyX" data-empty="Noch keine Fotos – lade oben die ersten hoch.">
+        <div class="album-head">
+          <div>
+            <div class="album-title">Islay &amp; Jura 2026</div>
+            <div class="album-sub">Unsere aktuelle Reise</div>
+          </div>
+          <a class="klm-btn album-link" href="https://e.pcloud.link/publink/show?code=kZHz1k7ZBimLbT45EEzrxmQAz8RE2VzaYOyX" target="_blank" rel="noopener">Alle Fotos öffnen</a>
+        </div>
+        <div class="album-hint">Im Album lassen sich einzelne Bilder oder das ganze Album herunterladen.</div>
+        <div class="album-grid"></div>
+        <div class="album-status">Vorschau wird geladen …</div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="bilder-glasgow">
+      <div class="album" data-code="kZFz1k7ZGg56XTziOx7yyt5qdxkutjv1WmMV" data-empty="Keine Vorschau verfügbar – bitte über den Button öffnen.">
+        <div class="album-head">
+          <div>
+            <div class="album-title">Glasgow</div>
+            <div class="album-sub">Fotos aus Glasgow</div>
+          </div>
+          <a class="klm-btn album-link" href="https://e.pcloud.link/publink/show?code=kZFz1k7ZGg56XTziOx7yyt5qdxkutjv1WmMV" target="_blank" rel="noopener">Alle Fotos öffnen</a>
+        </div>
+        <div class="album-hint">Im Album lassen sich einzelne Bilder oder das ganze Album herunterladen.</div>
+        <div class="album-grid"></div>
+        <div class="album-status">Vorschau wird geladen …</div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="bilder-speyside">
+      <div class="album" data-code="kZMp1k7ZHusIk6g84cm1z5hFsBzx9SO9Wht7" data-empty="Keine Vorschau verfügbar – bitte über den Button öffnen.">
+        <div class="album-head">
+          <div>
+            <div class="album-title">Speyside 2023</div>
+            <div class="album-sub">Schottland-Tour Oktober 2023</div>
+          </div>
+          <a class="klm-btn album-link" href="https://e.pcloud.link/publink/show?code=kZMp1k7ZHusIk6g84cm1z5hFsBzx9SO9Wht7" target="_blank" rel="noopener">Alle Fotos öffnen</a>
+        </div>
+        <div class="album-hint">Im Album lassen sich einzelne Bilder oder das ganze Album herunterladen.</div>
+        <div class="album-grid"></div>
+        <div class="album-status">Vorschau wird geladen …</div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="bilder-skye">
+      <div class="album" data-code="kZhF1k7ZG5Cv7p1hgE7z6L7rCwGG1JCG4dP7" data-empty="Keine Vorschau verfügbar – bitte über den Button öffnen.">
+        <div class="album-head">
+          <div>
+            <div class="album-title">Skye 2022</div>
+            <div class="album-sub">Schottland-Tour 2022</div>
+          </div>
+          <a class="klm-btn album-link" href="https://e.pcloud.link/publink/show?code=kZhF1k7ZG5Cv7p1hgE7z6L7rCwGG1JCG4dP7" target="_blank" rel="noopener">Alle Fotos öffnen</a>
+        </div>
+        <div class="album-hint">Im Album lassen sich einzelne Bilder oder das ganze Album herunterladen.</div>
+        <div class="album-grid"></div>
+        <div class="album-status">Vorschau wird geladen …</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1674,7 +1741,7 @@ loadPacking();
 
 /* ===== Bilder (pCloud) ===== */
 var PCLOUD_API = 'https://eapi.pcloud.com';
-var photoList = [], photoCur = 0, albumsLoaded = false;
+var photoList = [], photoCur = 0;
 function pcThumb(code, id, size, crop) {
   return PCLOUD_API + '/getpubthumb?code=' + code + '&fileid=' + id + '&size=' + size + '&crop=' + (crop ? 1 : 0) + '&type=jpg';
 }
@@ -1685,36 +1752,41 @@ function pcCollect(node, out) {
   });
   return out;
 }
-function loadAlbums() {
-  if (albumsLoaded) return;
-  albumsLoaded = true;
-  document.querySelectorAll('.album').forEach(function(album) {
-    var code = album.dataset.code;
-    var grid = album.querySelector('.album-grid');
-    var status = album.querySelector('.album-status');
-    fetch(PCLOUD_API + '/showpublink?code=' + code)
-      .then(function(r) { return r.json(); })
-      .then(function(d) {
-        if (d.result !== 0) throw new Error(d.error || 'pCloud-Fehler');
-        var files = pcCollect(d.metadata, []).sort(function(a, b) { return a.name.localeCompare(b.name); });
-        if (!files.length) { status.textContent = 'Keine Vorschau verfügbar – bitte über den Button öffnen.'; return; }
-        var list = files.map(function(f) { return { code: code, id: f.fileid }; });
-        list.forEach(function(item, i) {
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.setAttribute('aria-label', 'Foto ' + (i + 1) + ' groß anzeigen');
-          var img = document.createElement('img');
-          img.loading = 'lazy'; img.alt = '';
-          img.src = pcThumb(code, item.id, '300x300', true);
-          img.onerror = function() { b.remove(); };
-          b.appendChild(img);
-          b.onclick = function() { photoList = list; photoShow(i); document.getElementById('photoDlg').showModal(); };
-          grid.appendChild(b);
-        });
-        status.textContent = files.length + ' Fotos · antippen für Großansicht';
-      })
-      .catch(function() { status.textContent = 'Vorschau nicht verfügbar – bitte über den Button öffnen.'; });
+function loadAlbums(scopeId) {
+  var scope = document.getElementById(scopeId);
+  var albums = Array.prototype.filter.call(scope.querySelectorAll('.album'), function(a) {
+    return a.closest('.tab-content').classList.contains('active');
   });
+  albums.forEach(loadAlbum);
+}
+function loadAlbum(album) {
+  if (album.dataset.loaded) return;
+  album.dataset.loaded = '1';
+  var code = album.dataset.code;
+  var grid = album.querySelector('.album-grid');
+  var status = album.querySelector('.album-status');
+  fetch(PCLOUD_API + '/showpublink?code=' + code)
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      if (d.result !== 0) throw new Error(d.error || 'pCloud-Fehler');
+      var files = pcCollect(d.metadata, []).sort(function(a, b) { return a.name.localeCompare(b.name); });
+      if (!files.length) { status.textContent = album.dataset.empty; return; }
+      var list = files.map(function(f) { return { code: code, id: f.fileid }; });
+      list.forEach(function(item, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Foto ' + (i + 1) + ' groß anzeigen');
+        var img = document.createElement('img');
+        img.loading = 'lazy'; img.alt = '';
+        img.src = pcThumb(code, item.id, '300x300', true);
+        img.onerror = function() { b.remove(); };
+        b.appendChild(img);
+        b.onclick = function() { photoList = list; photoShow(i); document.getElementById('photoDlg').showModal(); };
+        grid.appendChild(b);
+      });
+      status.textContent = files.length + ' Fotos · antippen für Großansicht';
+    })
+    .catch(function() { album.dataset.loaded = ''; status.textContent = 'Vorschau nicht verfügbar – bitte über den Button öffnen.'; });
 }
 function photoShow(i) {
   photoCur = (i + photoList.length) % photoList.length;
