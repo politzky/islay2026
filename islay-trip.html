@@ -678,6 +678,14 @@ details .detail-content p { margin-bottom: 8px; }
 }
 .klm-btn:hover, .klm-btn:focus-visible { opacity: 0.88; outline: none; }
 .album { margin-bottom: 28px; }
+.weather-station { margin-bottom: 28px; }
+.weather-frame {
+  margin-top: 10px; width: 100%; aspect-ratio: 4 / 3; max-height: 560px;
+  background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+.weather-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+@media (max-width: 600px) { .weather-frame { aspect-ratio: 3 / 4; } }
+@media print { .weather-frame { display: none; } }
 .upload-box {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
   background: var(--accent-bg); border: 1px solid var(--accent-border);
@@ -750,6 +758,7 @@ details .detail-content p { margin-bottom: 8px; }
 
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab(event,'reise-uebersicht')">Übersicht</button>
+    <button class="tab-btn" onclick="switchTab(event,'reise-wetter'); loadWeather();">Wetter</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-fluege')">Flüge</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-faehre')">Fähre</button>
     <button class="tab-btn" onclick="switchTab(event,'reise-mietwagen')">Mietwagen</button>
@@ -1356,6 +1365,22 @@ details .detail-content p { margin-bottom: 8px; }
     </div>
   </div>
 
+  <div class="tab-content" id="reise-wetter">
+    <h2>Wetter</h2>
+    <div class="klm-hint">Vorhersage nach ECMWF-Modell über Windy. Karte zeigt Regen und Luftdruck, darunter die Vorhersage für den Standort.</div>
+
+    <div class="weather-station">
+      <div class="album-head">
+        <div>
+          <div class="album-title">Port Ellen</div>
+          <div class="album-sub">Südküste Islay · 55.629, -6.188</div>
+        </div>
+        <a class="klm-btn" href="https://www.windy.com/55.629/-6.188/ecmwf?rain,54.985,-6.188,7,i:pressure,p:favs" target="_blank" rel="noopener">In Windy öffnen</a>
+      </div>
+      <div class="weather-frame" data-src="https://embed.windy.com/embed2.html?lat=55.629&amp;lon=-6.188&amp;detailLat=55.629&amp;detailLon=-6.188&amp;zoom=7&amp;level=surface&amp;overlay=rain&amp;product=ecmwf&amp;menu=&amp;message=true&amp;marker=true&amp;calendar=now&amp;pressure=true&amp;type=map&amp;location=coordinates&amp;detail=true&amp;metricWind=km%2Fh&amp;metricTemp=%C2%B0C&amp;radarRange=-1"></div>
+    </div>
+  </div>
+
   <div class="tab-content" id="reise-bilder">
     <h2>Bilder</h2>
 
@@ -1743,6 +1768,19 @@ function resetPacking() {
 }
 
 loadPacking();
+
+/* ===== Wetter (Windy) ===== */
+function loadWeather() {
+  document.querySelectorAll('.weather-frame').forEach(function(box) {
+    if (box.dataset.loaded) return;
+    box.dataset.loaded = '1';
+    var f = document.createElement('iframe');
+    f.src = box.dataset.src;
+    f.title = 'Wettervorhersage';
+    f.loading = 'lazy';
+    box.appendChild(f);
+  });
+}
 
 /* ===== Bilder (pCloud) ===== */
 var PCLOUD_API = 'https://eapi.pcloud.com';
