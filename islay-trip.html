@@ -682,11 +682,11 @@ details .detail-content p { margin-bottom: 8px; }
 .weather-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
 .weather-links .copy-btn { margin-left: 0; padding: 6px 12px; font-size: 0.82rem; text-decoration: none; display: inline-block; }
 .weather-sublabel { font-size: 0.75rem; color: var(--text-tertiary); margin: 4px 0 12px; }
-.yr-meteo {
-  display: block; margin-top: 10px; background: #fff;
-  border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+.yr-table {
+  margin-top: 10px; background: #fff; border: 1px solid var(--border);
+  border-radius: 10px; overflow: hidden;
 }
-.yr-meteo img { display: block; width: 100%; min-width: 560px; height: auto; }
+.yr-table iframe { display: block; width: 100%; height: 520px; border: 0; }
 .yr-credit { font-size: 0.72rem; color: var(--text-tertiary); margin-top: 4px; }
 .weather-frame {
   margin-top: 10px; width: 100%; aspect-ratio: 4 / 3; max-height: 560px;
@@ -1394,10 +1394,8 @@ details .detail-content p { margin-bottom: 8px; }
       </div>
       <div class="weather-frame" data-src="https://embed.windy.com/embed2.html?lat=55.629&amp;lon=-6.188&amp;detailLat=55.629&amp;detailLon=-6.188&amp;zoom=7&amp;level=surface&amp;overlay=rain&amp;product=ecmwf&amp;menu=&amp;message=true&amp;marker=true&amp;calendar=now&amp;pressure=true&amp;type=map&amp;location=coordinates&amp;detail=true&amp;metricWind=km%2Fh&amp;metricTemp=%C2%B0C&amp;radarRange=-1"></div>
       <div class="weather-sublabel">Windy · ECMWF · Regen und Luftdruck</div>
-      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2640067/United%20Kingdom/Scotland/Argyll%20and%20Bute/Port%20Ellen" target="_blank" rel="noopener" title="Port Ellen bei Yr öffnen">
-        <img data-src="https://www.yr.no/en/content/2-2640067/meteogram.svg" alt="Yr-Meteogramm Port Ellen, nächste 3 Tage">
-      </a>
-      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
+      <div class="yr-table"><iframe data-src="https://www.yr.no/en/content/2-2640067/table.html" title="Yr 9-Tage-Vorhersage Port Ellen" loading="lazy"></iframe></div>
+      <div class="yr-credit">Vorhersage: Yr / MET Norway · <a class="map-link" href="https://www.yr.no/en/forecast/daily-table/2-2640067/United%20Kingdom/Scotland/Argyll%20and%20Bute/Port%20Ellen" target="_blank" rel="noopener">mehr bei Yr</a></div>
     </div>
 
     <div class="weather-station">
@@ -1407,10 +1405,8 @@ details .detail-content p { margin-bottom: 8px; }
           <div class="album-sub">Jura Distillery · Ausgangspunkt Jura-Tag</div>
         </div>
       </div>
-      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2652136/United%20Kingdom/Scotland/Argyll%20and%20Bute/Craighouse" target="_blank" rel="noopener" title="Craighouse bei Yr öffnen">
-        <img data-src="https://www.yr.no/en/content/2-2652136/meteogram.svg" alt="Yr-Meteogramm Craighouse, nächste 3 Tage">
-      </a>
-      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
+      <div class="yr-table"><iframe data-src="https://www.yr.no/en/content/2-2652136/table.html" title="Yr 9-Tage-Vorhersage Craighouse" loading="lazy"></iframe></div>
+      <div class="yr-credit">Vorhersage: Yr / MET Norway · <a class="map-link" href="https://www.yr.no/en/forecast/daily-table/2-2652136/United%20Kingdom/Scotland/Argyll%20and%20Bute/Craighouse" target="_blank" rel="noopener">mehr bei Yr</a></div>
     </div>
 
     <div class="weather-station">
@@ -1420,10 +1416,8 @@ details .detail-content p { margin-bottom: 8px; }
           <div class="album-sub">Gipfelbereich · für die Bergtour</div>
         </div>
       </div>
-      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2645939/United%20Kingdom/Scotland/Argyll%20and%20Bute/Paps%20of%20Jura" target="_blank" rel="noopener" title="Paps of Jura bei Yr öffnen">
-        <img data-src="https://www.yr.no/en/content/2-2645939/meteogram.svg" alt="Yr-Meteogramm Paps of Jura, nächste 3 Tage">
-      </a>
-      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
+      <div class="yr-table"><iframe data-src="https://www.yr.no/en/content/2-2645939/table.html" title="Yr 9-Tage-Vorhersage Paps of Jura" loading="lazy"></iframe></div>
+      <div class="yr-credit">Vorhersage: Yr / MET Norway · <a class="map-link" href="https://www.yr.no/en/forecast/daily-table/2-2645939/United%20Kingdom/Scotland/Argyll%20and%20Bute/Paps%20of%20Jura" target="_blank" rel="noopener">mehr bei Yr</a></div>
     </div>
   </div>
 
@@ -1817,9 +1811,9 @@ loadPacking();
 
 /* ===== Wetter (Windy) ===== */
 function loadWeather() {
-  document.querySelectorAll('.yr-meteo img[data-src]').forEach(function(img) {
-    img.src = img.dataset.src;
-    img.removeAttribute('data-src');
+  document.querySelectorAll('.yr-table iframe[data-src]').forEach(function(f) {
+    f.src = f.dataset.src;
+    f.removeAttribute('data-src');
   });
   document.querySelectorAll('.weather-frame').forEach(function(box) {
     if (box.dataset.loaded) return;
