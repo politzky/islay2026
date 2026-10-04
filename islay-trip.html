@@ -679,6 +679,15 @@ details .detail-content p { margin-bottom: 8px; }
 .klm-btn:hover, .klm-btn:focus-visible { opacity: 0.88; outline: none; }
 .album { margin-bottom: 28px; }
 .weather-station { margin-bottom: 28px; }
+.weather-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
+.weather-links .copy-btn { margin-left: 0; padding: 6px 12px; font-size: 0.82rem; text-decoration: none; display: inline-block; }
+.weather-sublabel { font-size: 0.75rem; color: var(--text-tertiary); margin: 4px 0 12px; }
+.yr-meteo {
+  display: block; margin-top: 10px; background: #fff;
+  border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.yr-meteo img { display: block; width: 100%; min-width: 560px; height: auto; }
+.yr-credit { font-size: 0.72rem; color: var(--text-tertiary); margin-top: 4px; }
 .weather-frame {
   margin-top: 10px; width: 100%; aspect-ratio: 4 / 3; max-height: 560px;
   background: var(--surface-alt); border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
@@ -1367,7 +1376,13 @@ details .detail-content p { margin-bottom: 8px; }
 
   <div class="tab-content" id="reise-wetter">
     <h2>Wetter</h2>
-    <div class="klm-hint">Vorhersage nach ECMWF-Modell über Windy. Karte zeigt Regen und Luftdruck, darunter die Vorhersage für den Standort.</div>
+    <div class="weather-links">
+      <a class="copy-btn" href="https://www.metoffice.gov.uk/weather/forecast/gcgs7pn0t" target="_blank" rel="noopener">Met Office Port Ellen</a>
+      <a class="copy-btn" href="https://www.metoffice.gov.uk/weather/forecast/gcgv8s1qu" target="_blank" rel="noopener">Met Office Craighouse</a>
+      <a class="copy-btn" href="https://www.mwis.org.uk/forecasts/scottish/west-highlands" target="_blank" rel="noopener">MWIS Bergwetter (Jura)</a>
+      <a class="copy-btn" href="https://www.calmac.co.uk/service-status?route=09" target="_blank" rel="noopener">CalMac Fähr-Status Islay</a>
+    </div>
+    <div class="klm-hint">Met Office = britischer Wetterdienst. MWIS = Bergwetter für die Region West Highlands, Jura wird dort eigens erwähnt. Vor der Paps-Tour unbedingt reinschauen. CalMac zeigt, ob die Fähren bei Sturm fahren.</div>
 
     <div class="weather-station">
       <div class="album-head">
@@ -1378,6 +1393,37 @@ details .detail-content p { margin-bottom: 8px; }
         <a class="klm-btn" href="https://www.windy.com/55.629/-6.188/ecmwf?rain,54.985,-6.188,7,i:pressure,p:favs" target="_blank" rel="noopener">In Windy öffnen</a>
       </div>
       <div class="weather-frame" data-src="https://embed.windy.com/embed2.html?lat=55.629&amp;lon=-6.188&amp;detailLat=55.629&amp;detailLon=-6.188&amp;zoom=7&amp;level=surface&amp;overlay=rain&amp;product=ecmwf&amp;menu=&amp;message=true&amp;marker=true&amp;calendar=now&amp;pressure=true&amp;type=map&amp;location=coordinates&amp;detail=true&amp;metricWind=km%2Fh&amp;metricTemp=%C2%B0C&amp;radarRange=-1"></div>
+      <div class="weather-sublabel">Windy · ECMWF · Regen und Luftdruck</div>
+      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2640067/United%20Kingdom/Scotland/Argyll%20and%20Bute/Port%20Ellen" target="_blank" rel="noopener" title="Port Ellen bei Yr öffnen">
+        <img data-src="https://www.yr.no/en/content/2-2640067/meteogram.svg" alt="Yr-Meteogramm Port Ellen, nächste 3 Tage">
+      </a>
+      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
+    </div>
+
+    <div class="weather-station">
+      <div class="album-head">
+        <div>
+          <div class="album-title">Craighouse (Jura)</div>
+          <div class="album-sub">Jura Distillery · Ausgangspunkt Jura-Tag</div>
+        </div>
+      </div>
+      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2652136/United%20Kingdom/Scotland/Argyll%20and%20Bute/Craighouse" target="_blank" rel="noopener" title="Craighouse bei Yr öffnen">
+        <img data-src="https://www.yr.no/en/content/2-2652136/meteogram.svg" alt="Yr-Meteogramm Craighouse, nächste 3 Tage">
+      </a>
+      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
+    </div>
+
+    <div class="weather-station">
+      <div class="album-head">
+        <div>
+          <div class="album-title">Paps of Jura</div>
+          <div class="album-sub">Gipfelbereich · für die Bergtour</div>
+        </div>
+      </div>
+      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2645939/United%20Kingdom/Scotland/Argyll%20and%20Bute/Paps%20of%20Jura" target="_blank" rel="noopener" title="Paps of Jura bei Yr öffnen">
+        <img data-src="https://www.yr.no/en/content/2-2645939/meteogram.svg" alt="Yr-Meteogramm Paps of Jura, nächste 3 Tage">
+      </a>
+      <div class="yr-credit">Meteogramm: Yr / MET Norway · antippen für 10-Tage-Vorhersage</div>
     </div>
   </div>
 
@@ -1771,6 +1817,10 @@ loadPacking();
 
 /* ===== Wetter (Windy) ===== */
 function loadWeather() {
+  document.querySelectorAll('.yr-meteo img[data-src]').forEach(function(img) {
+    img.src = img.dataset.src;
+    img.removeAttribute('data-src');
+  });
   document.querySelectorAll('.weather-frame').forEach(function(box) {
     if (box.dataset.loaded) return;
     box.dataset.loaded = '1';
