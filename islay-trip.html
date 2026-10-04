@@ -682,6 +682,11 @@ details .detail-content p { margin-bottom: 8px; }
 .weather-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 8px; }
 .weather-links .copy-btn { margin-left: 0; padding: 6px 12px; font-size: 0.82rem; text-decoration: none; display: inline-block; }
 .weather-sublabel { font-size: 0.75rem; color: var(--text-tertiary); margin: 4px 0 12px; }
+.yr-meteo {
+  display: block; margin-top: 10px; background: #fff;
+  border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.yr-meteo img { display: block; width: 100%; min-width: 560px; height: auto; }
 .yr-table {
   margin-top: 10px; background: #fff; border: 1px solid var(--border);
   border-radius: 10px; overflow: hidden;
@@ -1379,10 +1384,9 @@ details .detail-content p { margin-bottom: 8px; }
     <div class="weather-links">
       <a class="copy-btn" href="https://www.metoffice.gov.uk/weather/forecast/gcgs7pn0t" target="_blank" rel="noopener">Met Office Port Ellen</a>
       <a class="copy-btn" href="https://www.metoffice.gov.uk/weather/forecast/gcgv8s1qu" target="_blank" rel="noopener">Met Office Craighouse</a>
-      <a class="copy-btn" href="https://www.mwis.org.uk/forecasts/scottish/west-highlands" target="_blank" rel="noopener">MWIS Bergwetter (Jura)</a>
       <a class="copy-btn" href="https://www.calmac.co.uk/service-status?route=09" target="_blank" rel="noopener">CalMac Fähr-Status Islay</a>
     </div>
-    <div class="klm-hint">Met Office = britischer Wetterdienst. MWIS = Bergwetter für die Region West Highlands, Jura wird dort eigens erwähnt. Vor der Paps-Tour unbedingt reinschauen. CalMac zeigt, ob die Fähren bei Sturm fahren.</div>
+    <div class="klm-hint">Met Office = britischer Wetterdienst. CalMac zeigt, ob die Fähren bei Sturm fahren.</div>
 
     <div class="weather-station">
       <div class="album-head">
@@ -1401,21 +1405,14 @@ details .detail-content p { margin-bottom: 8px; }
     <div class="weather-station">
       <div class="album-head">
         <div>
-          <div class="album-title">Craighouse (Jura)</div>
-          <div class="album-sub">Jura Distillery · Ausgangspunkt Jura-Tag</div>
-        </div>
-      </div>
-      <div class="yr-table"><iframe data-src="https://www.yr.no/en/content/2-2652136/table.html" title="Yr 9-Tage-Vorhersage Craighouse" loading="lazy"></iframe></div>
-      <div class="yr-credit">Vorhersage: Yr / MET Norway · <a class="map-link" href="https://www.yr.no/en/forecast/daily-table/2-2652136/United%20Kingdom/Scotland/Argyll%20and%20Bute/Craighouse" target="_blank" rel="noopener">mehr bei Yr</a></div>
-    </div>
-
-    <div class="weather-station">
-      <div class="album-head">
-        <div>
           <div class="album-title">Paps of Jura</div>
           <div class="album-sub">Gipfelbereich · für die Bergtour</div>
         </div>
       </div>
+      <a class="yr-meteo" href="https://www.yr.no/en/forecast/daily-table/2-2645939/United%20Kingdom/Scotland/Argyll%20and%20Bute/Paps%20of%20Jura" target="_blank" rel="noopener" title="Paps of Jura bei Yr öffnen">
+        <img data-src="https://www.yr.no/en/content/2-2645939/meteogram.svg" alt="Yr-Meteogramm Paps of Jura, nächste 3 Tage">
+      </a>
+      <div class="weather-sublabel">3 Tage stündlich · seitlich wischen</div>
       <div class="yr-table"><iframe data-src="https://www.yr.no/en/content/2-2645939/table.html" title="Yr 9-Tage-Vorhersage Paps of Jura" loading="lazy"></iframe></div>
       <div class="yr-credit">Vorhersage: Yr / MET Norway · <a class="map-link" href="https://www.yr.no/en/forecast/daily-table/2-2645939/United%20Kingdom/Scotland/Argyll%20and%20Bute/Paps%20of%20Jura" target="_blank" rel="noopener">mehr bei Yr</a></div>
     </div>
@@ -1811,6 +1808,10 @@ loadPacking();
 
 /* ===== Wetter (Windy) ===== */
 function loadWeather() {
+  document.querySelectorAll('.yr-meteo img[data-src]').forEach(function(img) {
+    img.src = img.dataset.src;
+    img.removeAttribute('data-src');
+  });
   document.querySelectorAll('.yr-table iframe[data-src]').forEach(function(f) {
     f.src = f.dataset.src;
     f.removeAttribute('data-src');
