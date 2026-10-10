@@ -710,6 +710,14 @@ details .detail-content p { margin-bottom: 8px; }
 .album-sub { font-size: 0.85rem; color: var(--text-secondary); }
 .album-hint { font-size: 0.8rem; color: var(--text-tertiary); margin-bottom: 14px; }
 .album-status { font-size: 0.85rem; color: var(--text-tertiary); text-align: center; padding: 10px 0; }
+.album-folders { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.folder-chip {
+  font: inherit; font-size: 0.82rem; font-weight: 600; padding: 6px 12px; cursor: pointer;
+  color: var(--text-secondary); background: var(--surface-alt);
+  border: 1px solid var(--border); border-radius: 20px; transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.folder-chip:hover, .folder-chip:focus-visible { border-color: var(--accent-border); color: var(--accent); outline: none; }
+.folder-chip.active { color: #fff; background: var(--accent); border-color: var(--accent); }
 .album-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
 .album-grid button {
   padding: 0; border: 0; cursor: pointer; background: var(--surface-alt);
@@ -1854,10 +1862,10 @@ var photoList = [], photoCur = 0;
 function pcThumb(code, id, size, crop) {
   return PCLOUD_API + '/getpubthumb?code=' + code + '&fileid=' + id + '&size=' + size + '&crop=' + (crop ? 1 : 0) + '&type=jpg';
 }
-function pcCollect(node, out) {
+function pcCollect(node, out, path) {
   (node.contents || []).forEach(function(it) {
-    if (it.isfolder) pcCollect(it, out);
-    else if (it.category === 1 || /\.(jpe?g|png|heic|webp)$/i.test(it.name)) out.push(it);
+    if (it.isfolder) pcCollect(it, out, path ? path + ' / ' + it.name : it.name);
+    else if (it.category === 1 || /\.(jpe?g|png|heic|webp)$/i.test(it.name)) { it._folder = path || ''; out.push(it); }
   });
   return out;
 }
@@ -1868,32 +1876,64 @@ function loadAlbums(scopeId) {
   });
   albums.forEach(loadAlbum);
 }
+function renderAlbumGrid(album, files, folder) {
+  var code = album.dataset.code;
+  var grid = album.querySelector('.album-grid');
+  var status = album.querySelector('.album-status');
+  var sel = folder === null ? files : files.filter(function(f) { return f._folder === folder; });
+  var list = sel.map(function(f) { return { code: code, id: f.fileid }; });
+  grid.innerHTML = '';
+  list.forEach(function(item, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.setAttribute('aria-label', 'Foto ' + (i + 1) + ' groß anzeigen');
+    var img = document.createElement('img');
+    img.loading = 'lazy'; img.alt = '';
+    img.src = pcThumb(code, item.id, '300x300', true);
+    img.onerror = function() { b.remove(); };
+    b.appendChild(img);
+    b.onclick = function() { photoList = list; photoShow(i); document.documentElement.style.overflow = 'hidden'; document.getElementById('photoDlg').showModal(); };
+    grid.appendChild(b);
+  });
+  status.textContent = list.length + ' Fotos · antippen für Großansicht';
+}
 function loadAlbum(album) {
   if (album.dataset.loaded) return;
   album.dataset.loaded = '1';
   var code = album.dataset.code;
-  var grid = album.querySelector('.album-grid');
   var status = album.querySelector('.album-status');
   fetch(PCLOUD_API + '/showpublink?code=' + code)
     .then(function(r) { return r.json(); })
     .then(function(d) {
       if (d.result !== 0) throw new Error(d.error || 'pCloud-Fehler');
-      var files = pcCollect(d.metadata, []).sort(function(a, b) { return a.name.localeCompare(b.name); });
-      if (!files.length) { status.textContent = album.dataset.empty; return; }
-      var list = files.map(function(f) { return { code: code, id: f.fileid }; });
-      list.forEach(function(item, i) {
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.setAttribute('aria-label', 'Foto ' + (i + 1) + ' groß anzeigen');
-        var img = document.createElement('img');
-        img.loading = 'lazy'; img.alt = '';
-        img.src = pcThumb(code, item.id, '300x300', true);
-        img.onerror = function() { b.remove(); };
-        b.appendChild(img);
-        b.onclick = function() { photoList = list; photoShow(i); document.documentElement.style.overflow = 'hidden'; document.getElementById('photoDlg').showModal(); };
-        grid.appendChild(b);
+      var files = pcCollect(d.metadata, [], '').sort(function(a, b) {
+        return a._folder.localeCompare(b._folder, 'de', { numeric: true }) || a.name.localeCompare(b.name, 'de', { numeric: true });
       });
-      status.textContent = files.length + ' Fotos · antippen für Großansicht';
+      if (!files.length) { status.textContent = album.dataset.empty; return; }
+      // Ordner zählen
+      var counts = {}, order = [];
+      files.forEach(function(f) { if (!(f._folder in counts)) { counts[f._folder] = 0; order.push(f._folder); } counts[f._folder]++; });
+      var old = album.querySelector('.album-folders'); if (old) old.remove();
+      if (order.length > 1) {
+        var bar = document.createElement('div');
+        bar.className = 'album-folders';
+        var mk = function(label, n, folder, active) {
+          var c = document.createElement('button');
+          c.type = 'button';
+          c.className = 'folder-chip' + (active ? ' active' : '');
+          c.textContent = label + ' (' + n + ')';
+          c.onclick = function() {
+            bar.querySelectorAll('.folder-chip').forEach(function(x) { x.classList.remove('active'); });
+            c.classList.add('active');
+            renderAlbumGrid(album, files, folder);
+          };
+          bar.appendChild(c);
+        };
+        mk('Alle', files.length, null, true);
+        order.forEach(function(f) { mk(f || 'Ohne Ordner', counts[f], f, false); });
+        album.insertBefore(bar, album.querySelector('.album-grid'));
+      }
+      renderAlbumGrid(album, files, null);
     })
     .catch(function() { album.dataset.loaded = ''; status.textContent = 'Vorschau nicht verfügbar – bitte über den Button öffnen.'; });
 }
